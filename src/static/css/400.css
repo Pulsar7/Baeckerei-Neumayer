@@ -1,0 +1,10 @@
+.container {
+    background-color: rgba(255, 0, 0, 0.329);
+    color: whitesmoke;
+    padding: 50px;
+    border-left: 7px solid red;
+    border-radius: 1px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}

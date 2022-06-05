@@ -1,0 +1,19 @@
+{% extends regular_data.base_filepath %}
+{% block content %}
+<div class="content">
+    <form action="{{url_for('kontakt_route')}}" method="POST">
+        <label for="vorname">Vorname</label>
+        <input name="vorname" id="vorname" type="text" placeholder="Vorname" required/>
+        <label for="nachname">Nachname</label>
+        <input name="nachname" id="nachname" type="text" placeholder="Nachname" required/>
+        <label for="telefon">Telefon</label>
+        <input name="telefon" id="telefon" type="text" placeholder="Telefon" required/>
+        <label for="email">E-Mail</label>
+        <input name="email" id="email" type="text" placeholder="E-Mail" required/>
+        <textarea name="anmerkung" id="anmerkung" type="text" rows="15" cols="10">Anmerkung...</textarea><br>
+        <input name="checkbox" id="checkbox" type="checkbox" value="1" required/>
+        <b>Hiermit akzeptieren Sie unsere <a href="{{url_for('impressum_route')}}#Datenschutz">Datenschutzbestimmungen</a></b><br>
+        <input name="submit" id="submit" type="submit" value="Absenden" />
+    </form>
+</div>
+{% endblock %}

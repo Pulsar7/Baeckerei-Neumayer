@@ -1,0 +1,16 @@
+{% extends regular_data.base_filepath %}
+{% block content %}
+<div class="content">
+    <div class="info_container">
+        <h2><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Admin Bereich</h2>
+        <p>
+            Der Login ist nur für den Administrator der Website.
+        </p>
+    </div>
+    <form action="{{url_for('login_route')}}" method="POST">
+        <input name="username" id="username" type="text" placeholder="Benutzername" required />
+        <input name="password" id="password" type="password" placeholder="Passwort" required />
+        <input name="submit" id="submit" type="submit" value="Anmelden" />
+    </form>
+</div>
+{% endblock %}

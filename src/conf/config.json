@@ -1,0 +1,148 @@
+{
+    "Webserver": {
+        "name": "Bäckerei Neumeyer",
+        "host": "0.0.0.0",
+        "port": 5000,
+        "template_folder": "src/templates/",
+        "static_folder": "src/static/",
+        "secret_key": ""
+    },
+
+    "Logging": {
+        "formatter": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    },
+
+    "Database": {
+        "connection_url": "mongodb://localhost:27017/",
+        "name": "Bäckerei Neumeyer",
+
+        "collections": {
+            "PagesData": {
+                "name": "PagesData"
+            },
+            "LoginData": {
+                "name": "LoginData"
+            },
+            "UserData": {
+                "name": "UserData"
+            }
+        }
+    },
+
+    "Requests": {
+        "regular_data": {
+            "base_filepath": "base.html",
+            "heading_banner_img_path": "/img/heading_banner/banner-1.jpg",
+
+            "css_files": {
+                "standard_css_file": "/css/standard.css",
+                "navbar_css_file": "/css/navbar.css"
+            },
+
+            "js_files": {
+                "standard_js_file": "/js/standard.js"
+            },
+
+            "fonts": {
+                "font-family: 'Oxygen', sans-serif;": "https://fonts.googleapis.com/css2?family=Oxygen&display=swap",
+                "font-family: 'Roboto', sans-serif;": "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
+                "font-family: 'Lato', sans-serif;": "https://fonts.googleapis.com/css2?family=Lato&display=swap",
+                "font-family: 'Roboto Slab', serif;": "https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
+            },
+
+            "icons": {
+                "Cloudflare-Font-Awesome": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            },
+
+            "other": {}
+        },
+
+        "index_route": {
+            "methods": ["GET"],
+            "rule": "/",
+            "page_path": "index.html",
+            "head_title": "HOME",
+            "heading_title": "Bäckerei Neumeyer"
+        },
+
+        "service_route": {
+            "methods": ["GET"],
+            "rule": "/service",
+            "page_path": "service.html",
+            "head_title": "Service",
+            "heading_title": "Service"
+        },
+
+        "anfahrt_route": {
+            "methods": ["GET"],
+            "rule": "/anfahrt",
+            "page_path": "anfahrt.html",
+            "head_title": "Anfahrt",
+            "heading_title": "Anfahrt"
+        },
+        
+        "impressum_route": {
+            "methods": ["GET"],
+            "rule": "/impressum",
+            "page_path": "impressum.html",
+            "head_title": "Impressum",
+            "heading_title": "Impressum"
+        },
+
+        "kontakt_route": {
+            "methods": ["POST","GET"],
+            "rule": "/kontakt",
+            "page_path": "kontakt.html",
+            "head_title": "Kontakt",
+            "heading_title": "Kontakt"
+        },
+
+        "about_route": {
+            "methods": ["GET"],
+            "rule": "/about",
+            "page_path": "about.html",
+            "head_title": "Über Uns",
+            "heading_title": "Über Uns"
+        },
+
+        "login_route": {
+            "methods": ["POST","GET"],
+            "rule": "/login",
+            "page_path": "admin/login.html",
+            "head_title": "LOGIN",
+            "heading_title": "Login"
+        },
+
+        "404_route": {
+            "rule": "404",
+            "page_path": "errors/404.html",
+            "head_title": "404",
+            "heading_title": "Not Found"
+        },
+
+        "400_route": {
+            "rule": "400",
+            "page_path": "errors/400.html",
+            "head_title": "400",
+            "heading_title": "Bad request"
+        },
+
+        "css_route": {
+            "methods": ["GET"],
+            "rule": "/css/<path:path>",
+            "directory": "src/static/css/"
+        },
+
+        "js_route": {
+            "methods": ["GET"],
+            "rule": "/js/<path:path>",
+            "directory": "src/static/js/"
+        },
+
+        "img_route": {
+            "methods": ["GET"],
+            "rule": "/img/<path:path>",
+            "directory": "src/static/img/"
+        }
+    }
+}

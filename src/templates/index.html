@@ -1,0 +1,21 @@
+{% extends regular_data.base_filepath %}
+{% block content %}
+    <div class="content">
+        <div class="container">
+            {{welcome_front_text}}
+        </div>
+        <div class="container">
+            <h2>Öffnungszeiten</h2>
+            <table>
+                <tr>
+                    <td>Mo, Di, Do, Fr</td>
+                    <td>5.00 – 12.00 Uhr, 14.00 – 18.00 Uhr</td>
+                </tr>
+                <tr>
+                    <td>Mi, Sa</td>
+                    <td>5.00 – 12.00 Uhr</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
