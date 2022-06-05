@@ -1,5 +1,5 @@
 [![Contributor - Pulsar](https://img.shields.io/badge/author-Pulsar7-lightgrey.svg?colorB=9900cc&style=flat-square)](https://github.com/Pulsar7)
-[![Contributor - 2](https://img.shields.io/badge/author-Pulsar7-lightgrey.svg?colorB=9900cc&style=flat-square)]()
+[![Contributor - Stefan](https://img.shields.io/badge/author-Stefan572-lightgrey.svg?colorB=9901cc&style=flat-square)](https://github.com/Stefan572)
 [![Release](https://img.shields.io/github/release/dmhendricks/file-icon-vectors.svg?style=flat-square)](https://github.com/Pulsar7/Baeckerei-Neumeyer/releases)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/dmhendricks/file-icon-vectors.svg?style=social)](https://twitter.com/SevenPulsar)
 
