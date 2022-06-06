@@ -7,7 +7,8 @@
     border-radius: 4px;
     border-bottom-left-radius: 30px;
     border-top-right-radius: 30px;
-    font-size: 4rem;
+    font-size: 6rem;
+    font-family: 'Niconne', cursive;
 }
 
 .container h2 {

@@ -42,6 +42,13 @@
             <a href="{{url_for('login_route')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
             <a href="javascript:void(0);" class="icon" onclick="NavbarFunction()">&#9776;</a>
         </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert_container"><p>{{message}}</p></div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </body>
     <footer>

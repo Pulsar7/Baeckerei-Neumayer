@@ -2,7 +2,7 @@
 Bäckerei Neumeyer/Request Handler/Python 3.8.10
 """
 import sys
-from flask import (render_template, redirect, send_from_directory, request, url_for)
+from flask import (render_template, redirect, send_from_directory, request, url_for, session, flash)
 sys.dont_write_bytecode = True
 
 class REQUESTS():
@@ -54,11 +54,46 @@ class REQUESTS():
 
     def kontakt_route(self):
         name = "kontakt"
-        regular_data = self.get_regular_resp_data(name)
-        return render_template(
-            regular_data['page_path'],
-            regular_data = regular_data
-        )
+        if (request.method == "GET"):
+            regular_data = self.get_regular_resp_data(name)
+            return render_template(
+                regular_data['page_path'],
+                regular_data = regular_data
+            )
+        else:
+            vorname = request.form.get('vorname')
+            nachname = request.form.get('nachname')
+            telefon = request.form.get('telefon')
+            email = request.form.get('email')
+            anmerkung = request.form.get('anmerkung')
+            checkbox = request.form.get('checkbox') # don't have to check this value
+            # validates email and phone number
+            unknown_email_chars = self.conf.get('Requests','kontakt_route')['unknown_characters']
+            needed_email_chars = self.conf.get('Requests','kontakt_route')['email_validation']
+            alert_messages = self.conf.get('Requests','kontakt_route')['alert_messages']
+            valid = True
+            for element in email:
+                element = element.lower()
+                if (element in unknown_email_chars):
+                    valid = False
+                    break
+            for element in needed_email_chars:
+                if (element not in email):
+                    valid = False
+                    break
+            if (valid == False):
+                flash(alert_messages['not_valid_email']%(email))
+            else:
+                status = self.db.add_contact_message(
+                    {
+                        "vorname": vorname, "nachname": nachname,
+                        "telefon": telefon, "anmerkung": anmerkung
+                    }
+                )
+                
+                if (status == False):
+                    flash(alert_messages['error_while_sending_msg'])
+            return redirect(url_for('kontakt_route'))
 
     def impressum_route(self):
         name = "impressum"
@@ -70,14 +105,17 @@ class REQUESTS():
 
     def login_route(self):
         name = "login"
-        if (request.method == "GET"):
-            regular_data = self.get_regular_resp_data(name)
-            return render_template(
-                regular_data['page_path'],
-                regular_data = regular_data
-            )
-        else: # Handle Post-Request
-            return redirect(url_for('login_route'))
+        if (self.db.check_if_logged_in(session) == False):
+            if (request.method == "GET"):
+                regular_data = self.get_regular_resp_data(name)
+                return render_template(
+                    regular_data['page_path'],
+                    regular_data = regular_data
+                )
+            else: # Handle Post-Request
+                return redirect(url_for('login_route'))
+        else:
+            return redirect(url_for('dashboard_route'))
 
     def not_found_route(self,*args):
         name = "404"

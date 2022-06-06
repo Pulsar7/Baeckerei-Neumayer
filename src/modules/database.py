@@ -17,6 +17,7 @@ class DATABASE():
         self.login_data = self.db[collections['LoginData']['name']]
         self.user_data = self.db[collections['UserData']['name']]
         self.pages_data = self.db[collections['PagesData']['name']]
+        self.contact_data = self.db[collections['ContactData']['name']]
         #
     
     def check_if_logged_in(self,session_data):
@@ -25,6 +26,7 @@ class DATABASE():
         for x in mydoc:
             print(x)
         # CHECK IF ITS ALREADY IN MYDOC
+        return False
 
     def check_login_data(self,input_data):
         clear_pwd = input_data['password']
@@ -37,4 +39,7 @@ class DATABASE():
         for x in mydoc:
             print(x)
         # CHECK IF ITS IN MYDOC
+
+    def add_contact_message(self,message_data):
+        return False
 

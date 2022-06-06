@@ -5,7 +5,7 @@
         "port": 5000,
         "template_folder": "src/templates/",
         "static_folder": "src/static/",
-        "secret_key": ""
+        "secret_key": "asoipdjfhlkasdhf8974365zuiasdhfkjasdgfjhagsdfjhasfdHAJDFAHD"
     },
 
     "Logging": {
@@ -14,17 +14,23 @@
 
     "Database": {
         "connection_url": "mongodb://localhost:27017/",
-        "name": "Bäckerei Neumeyer",
+        "name": "Baekerei-Neumeyer",
 
         "collections": {
             "PagesData": {
                 "name": "PagesData"
             },
+            
             "LoginData": {
                 "name": "LoginData"
             },
+            
             "UserData": {
                 "name": "UserData"
+            },
+
+            "ContactData": {
+                "name": "ContactData"
             }
         }
     },
@@ -32,7 +38,7 @@
     "Requests": {
         "regular_data": {
             "base_filepath": "base.html",
-            "heading_banner_img_path": "/img/heading_banner/banner-1.jpg",
+            "heading_banner_img_path": "/img/heading_banner/banner-3.jpg",
 
             "css_files": {
                 "standard_css_file": "/css/standard.css",
@@ -47,7 +53,8 @@
                 "font-family: 'Oxygen', sans-serif;": "https://fonts.googleapis.com/css2?family=Oxygen&display=swap",
                 "font-family: 'Roboto', sans-serif;": "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
                 "font-family: 'Lato', sans-serif;": "https://fonts.googleapis.com/css2?family=Lato&display=swap",
-                "font-family: 'Roboto Slab', serif;": "https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
+                "font-family: 'Roboto Slab', serif;": "https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap",
+                "font-family: 'Niconne', cursive;":"https://fonts.googleapis.com/css2?family=Niconne&display=swap"
             },
 
             "icons": {
@@ -94,7 +101,13 @@
             "rule": "/kontakt",
             "page_path": "kontakt.html",
             "head_title": "Kontakt",
-            "heading_title": "Kontakt"
+            "heading_title": "Kontakt",
+            "unknown_characters": [" ","ä","ü","ö"],
+            "email_validation": ["@"],
+            "alert_messages": {
+                "not_valid_email": "Die angebene E-Mail Adresse '%s' ist nicht korrekt!",
+                "error_while_sending_msg": "Ihre Nachricht konnte leider nicht versendet werden! Es handelt sich hierbei womöglich um ein Server-Problem."
+            }
         },
 
         "about_route": {

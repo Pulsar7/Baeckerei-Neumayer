@@ -78,3 +78,4 @@ if (__name__ == '__main__'):
         debug = True
         # debug = args.debug
     )
+    conf.load_config_data()

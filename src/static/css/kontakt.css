@@ -5,6 +5,10 @@
 form {
     padding: 1% 20%;
     text-align: left;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    border-radius: 30px;
+    border-left-style: dotted;
+    border-left: 2px solid lavender;
 }
 
 input[type=text] {
@@ -28,16 +32,28 @@ textarea {
     font-size: 1.1rem;
 }
 
+a {
+    color: royalblue; 
+}
+
 #submit {
     width: 100%;
-    padding: 7px 10px;
+    padding: 10px 15px;
     background-color: rgb(35, 160, 35);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     font-size: 1.1rem;
     outline: none;
-    border: 1px solid limegreen;
+    border: 0px solid limegreen;
     color: whitesmoke;
     cursor: pointer;
     margin-top: 1%;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+#submit:hover {
+    opacity: 0.9;
+    transition: 0.3s;
 }
 
 @media screen and (max-width:800px) {
