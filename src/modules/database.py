@@ -2,6 +2,7 @@
 Bäckerei Neumeyer/Database/Python 3.8.10
 """
 import pymongo,sys,hashlib,os,time,random,string
+from datetime import datetime
 
 sys.dont_write_bytecode = True
 
@@ -20,14 +21,6 @@ class DATABASE():
         self.tortensortiment_data = self.db[collections['TortensortimentData']['name']]
         self.contact_data = self.db[collections['ContactData']['name']]
         #
-        """values = collections['UserData']['values']
-        self.user_data.insert_one(
-            {
-                values[0]:"admin",
-                values[1]:"f81286343d93846bd1a5f6f221a494c75476644aca85ccebf52eee991f2c1c9d"
-            }
-        )"""
-        # self.login_data.delete_many({})
 
     def get_tortensortiment(self):
         mydoc = self.tortensortiment_data.find()
@@ -43,9 +36,10 @@ class DATABASE():
             values[0]: session_data[values[0]],
             values[1]: session_data[values[1]],
             values[2]: session_data[values[2]],
-            values[3]: session_data[values[3]]
+            values[3]: session_data[values[3]],
+            values[4]: session_data[values[4]]
         }
-        self.login_data.delete_one(query)
+        self.login_data.delete_many(query)
         for x in self.login_data.find():
             print(x)
     
@@ -62,13 +56,14 @@ class DATABASE():
                 values[0]: session_data[values[0]],
                 values[1]: session_data[values[1]],
                 values[2]: session_data[values[2]],
-                values[3]: session_data[values[3]]
+                values[3]: session_data[values[3]],
+                values[4]: session_data[values[4]]
             }
         if (len(query) > 0):
+            x = self.login_data.find_one()
             mydoc = self.login_data.find(query)
             counter = 0
             for x in mydoc:
-                # print(x)
                 counter += 1
             if (counter > 0):
                 end = time.time()
@@ -78,7 +73,31 @@ class DATABASE():
                     self.login_data.delete_one(query)
                 else:
                     status = True
+            else:
+                status = False
+        else:
+            status = False
         return status
+
+    def get_number_of_sessions(self):
+        counter = 0
+        for x in self.login_data.find():
+            counter += 1
+        return counter
+
+    def get_number_of_users(self):
+        counter = 0
+        for x in self.user_data.find():
+            counter += 1
+        return counter
+
+    def get_open_sessions(self):
+        sessions = {}
+        counter = 0
+        for x in self.login_data.find():
+            sessions[str(counter)] = x
+            counter += 1
+        return sessions
 
     def check_login_data(self,input_data):
         status = False
@@ -97,16 +116,23 @@ class DATABASE():
             counter += 1
         if (counter > 0):
             values = self.collections['LoginData']['values']
+            now = datetime.now()
+            zeitpunkt = f"{now.day}.{now.month}.{now.year} - {now.hour}:{now.minute}:{now.second}"
+            session_id = self.generate_session_id()
+            session_key = self.generate_session_key()
+            now_time = time.time()
             new_session_data = {
                 values[0]: input_data['username'],
-                values[1]: self.generate_session_id(),
-                values[2]: self.generate_session_key(),
-                values[3]: time.time()
+                values[1]: session_id,
+                values[2]: session_key,
+                values[3]: now_time,
+                values[4]: zeitpunkt
             }
             self.login_data.insert_one({values[0]: input_data['username'],
-                                        values[1]: self.generate_session_id(),
-                                        values[2]: self.generate_session_key(),
-                                        values[3]: time.time()})
+                                        values[1]: session_id,
+                                        values[2]: session_key,
+                                        values[3]: now_time,
+                                        values[4]: zeitpunkt})
             status = True
         # CHECK IF ITS IN MYDOC
         return (status,new_session_data)
@@ -125,7 +151,6 @@ class DATABASE():
             query = {"session_id":generated_id}
             counter = 0
             for x in self.login_data.find(query):
-                print(x)
                 counter += 1
             if (counter > 0):
                 pass
@@ -147,7 +172,6 @@ class DATABASE():
             query = {"session_key":generated_key}
             counter = 0
             for x in self.login_data.find(query):
-                print(x)
                 counter += 1
             if (counter > 0):
                 pass

@@ -24,7 +24,7 @@
             
             "LoginData": {
                 "name": "LoginData",
-                "values": ["username","session_id","session_key","session_start_time"],
+                "values": ["username","session_id","session_key","session_start_time","login_clock"],
                 "session_id_len": 15,
                 "session_key_len": 20,
                 "max_login_time_in_sec": 5000

@@ -137,7 +137,6 @@ class REQUESTS():
                 else:
                     for element in new_session_data:
                         session[element] = new_session_data[element]
-                    print(session)
                     return redirect(url_for('dashboard_route'))
         else:
             return redirect(url_for('dashboard_route'))
@@ -150,7 +149,10 @@ class REQUESTS():
             return render_template(
                 regular_data['page_path'],
                 regular_data = regular_data,
-                session_data = session
+                session_data = session,
+                number_of_sessions = self.db.get_number_of_sessions(),
+                number_of_users = self.db.get_number_of_users(),
+                open_sessions = self.db.get_open_sessions()
             )
         else:
             flash(alert_messages['need_to_bee_logged_in'])

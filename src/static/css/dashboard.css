@@ -1,0 +1,49 @@
+#logout_link {
+    background-color: rgba(207, 19, 19, 0.555);
+    padding: 8px 20px;
+    border-radius: 3px;
+    color: whitesmoke;
+    font-weight: normal;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card_content {
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+
+.dash_card, .dash_card_plus {
+    width: 100%;
+    max-width: 250px;
+    height: 100%;
+    padding: 0px 20px;
+    border-radius: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    text-align: left;
+    display: block;
+    background-color: white;
+    margin-right: 1%;
+    float: left;
+    margin-top: 1.5%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.dash_card_plus {
+    max-width: 400px;
+}
+
+.footer {
+    margin-top: 50%;
+}
+
+@media screen and (max-width:800px) {
+    .dash_card, .dash_card_plus {
+        max-width: 100%;
+        margin-bottom: 2%;
+    }
+
+    .footer {
+        margin-top: 100%;
+    }
+}

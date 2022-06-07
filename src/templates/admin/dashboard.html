@@ -2,7 +2,32 @@
 {% block content %}
 <div class="content">
     <div class="container">
-        
+        <a id="logout_link" href="{{url_for('logout_route')}}">Logout</a>
+    </div>
+    <div class="card_content">
+        <div class="dash_card">
+            <h4>Offene Sitzungen</h4>
+            <p>{{number_of_sessions}}</p>
+        </div>
+        <div class="dash_card">
+            <h4>Benutzer</h4>
+            <p>{{number_of_users}}</p>
+        </div>
+    </div><br>
+    <div class="card_content">
+        {% for sitzung in open_sessions %}
+        {% if open_sessions[sitzung]['session_id'] == session_data.session_id %}
+        <div class="dash_card_plus" style="border: 2px solid rgb(43, 165, 43);">
+        {% else %}
+        <div class="dash_card_plus" style="border: 2px solid rgba(43, 165, 43, 0.527);">
+        {% endif %}
+            <h4>{{open_sessions[sitzung]['username']}} <i class="fa fa-hand-o-right" aria-hidden="true"></i> <b style="color:limegreen;text-align: right;">ICH</b></h4>
+            <p>Session-ID: <b>{{open_sessions[sitzung]['session_id']}}</b><br>Session-Key:
+                <b>{{open_sessions[sitzung]['session_key']}}</b><br>Zeitpunkt: <b>{{open_sessions[sitzung]['login_clock']}}</b></p>
+        </div>
+        {% endfor %}
+    </div><br>
+    <div class="card_content">
     </div>
 </div>
 {% endblock %}
