@@ -72,6 +72,7 @@ td,th {
 
 .left_row img {
     border-radius: 10px;
+    max-width: 100%;
 }
 
 .right_row img {

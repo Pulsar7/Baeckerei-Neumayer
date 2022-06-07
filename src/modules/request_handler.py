@@ -111,8 +111,15 @@ class REQUESTS():
             tortensortiment = self.db.get_tortensortiment()
         )
 
+    def logout_route(self):
+        if (self.db.check_if_logged_in(session) == True):
+            self.db.delete_logged_in_devices(session)
+            session.clear()
+        return redirect(url_for('index_route'))
+
     def login_route(self):
         name = "login"
+        alert_messages = self.conf.get('Requests','login_route')['alert_messages']
         if (self.db.check_if_logged_in(session) == False):
             if (request.method == "GET"):
                 regular_data = self.get_regular_resp_data(name)
@@ -121,7 +128,17 @@ class REQUESTS():
                     regular_data = regular_data
                 )
             else: # Handle Post-Request
-                return redirect(url_for('login_route'))
+                username = request.form.get('username')
+                password = request.form.get('password')
+                (status,new_session_data) = self.db.check_login_data({"username":username,"password":password})
+                if (status == False):
+                    flash(alert_messages['invalid_login_data'])
+                    return redirect(url_for('login_route'))
+                else:
+                    for element in new_session_data:
+                        session[element] = new_session_data[element]
+                    print(session)
+                    return redirect(url_for('dashboard_route'))
         else:
             return redirect(url_for('dashboard_route'))
 
@@ -133,7 +150,7 @@ class REQUESTS():
             return render_template(
                 regular_data['page_path'],
                 regular_data = regular_data,
-                username = session['username']
+                session_data = session
             )
         else:
             flash(alert_messages['need_to_bee_logged_in'])

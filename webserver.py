@@ -36,6 +36,7 @@ impressum_route = conf.get('Requests','impressum_route')
 login_route = conf.get('Requests','login_route')
 tortensortiment_route = conf.get('Requests','tortensortiment_route')
 dashboard_route = conf.get('Requests','dashboard_route')
+logout_route = conf.get('Requests','logout_route')
 
 webserver.add_url_rule(rule = index_route['rule'], view_func = requests.index_route, 
     methods = index_route['methods'])
@@ -55,6 +56,10 @@ webserver.add_url_rule(rule = tortensortiment_route['rule'], view_func = request
     methods = tortensortiment_route['methods'])
 webserver.add_url_rule(rule = dashboard_route['rule'], view_func = requests.dashboard_route, 
     methods = dashboard_route['methods'])
+webserver.add_url_rule(rule = logout_route['rule'], view_func = requests.logout_route,
+    methods = logout_route['methods']
+)
+
 
 # Errors/Func
 not_found_route = conf.get('Requests','404_route')
@@ -84,4 +89,3 @@ if (__name__ == '__main__'):
         debug = True
         # debug = args.debug
     )
-    conf.load_config_data()

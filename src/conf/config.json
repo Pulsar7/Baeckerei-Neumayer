@@ -18,19 +18,26 @@
 
         "collections": {
             "TortensortimentData": {
-                "name": "TortensortimentData"
+                "name": "TortensortimentData",
+                "values": ["torten_name","torten_img_path","torten_description"]
             },
             
             "LoginData": {
-                "name": "LoginData"
+                "name": "LoginData",
+                "values": ["username","session_id","session_key","session_start_time"],
+                "session_id_len": 15,
+                "session_key_len": 20,
+                "max_login_time_in_sec": 5000
             },
             
             "UserData": {
-                "name": "UserData"
+                "name": "UserData",
+                "values": ["username","password"]
             },
 
             "ContactData": {
-                "name": "ContactData"
+                "name": "ContactData",
+                "values": ["vorname","nachname","email","telefon","anmerkung","time"]
             }
         }
     },
@@ -88,6 +95,14 @@
             "head_title": "Anfahrt",
             "heading_title": "Anfahrt"
         },
+
+        "logout_route": {
+            "methods": ["GET"],
+            "rule": "/logout",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": ""
+        },
         
         "impressum_route": {
             "methods": ["GET"],
@@ -143,7 +158,10 @@
             "rule": "/login",
             "page_path": "admin/login.html",
             "head_title": "LOGIN",
-            "heading_title": "Login"
+            "heading_title": "Login",
+            "alert_messages": {
+                "invalid_login_data": "Es wurden falsche Benutzerdaten angegeben!"
+            }
         },
 
         "404_route": {
