@@ -24,8 +24,7 @@ class REQUESTS():
         regular_data = self.get_regular_resp_data(name)
         return render_template(
             regular_data['page_path'],
-            regular_data = regular_data,
-            welcome_front_text = ""
+            regular_data = regular_data
         )
 
     def about_route(self):
@@ -103,6 +102,15 @@ class REQUESTS():
             regular_data = regular_data
         )
 
+    def tortensortiment_route(self):
+        name = "tortensortiment"
+        regular_data = self.get_regular_resp_data(name)
+        return render_template(
+            regular_data['page_path'],
+            regular_data = regular_data,
+            tortensortiment = self.db.get_tortensortiment()
+        )
+
     def login_route(self):
         name = "login"
         if (self.db.check_if_logged_in(session) == False):
@@ -116,6 +124,20 @@ class REQUESTS():
                 return redirect(url_for('login_route'))
         else:
             return redirect(url_for('dashboard_route'))
+
+    def dashboard_route(self):
+        name = "dashboard"
+        alert_messages = self.conf.get('Requests','dashboard_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            regular_data = self.get_regular_resp_data(name)
+            return render_template(
+                regular_data['page_path'],
+                regular_data = regular_data,
+                username = session['username']
+            )
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
 
     def not_found_route(self,*args):
         name = "404"

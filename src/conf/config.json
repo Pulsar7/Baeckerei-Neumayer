@@ -17,8 +17,8 @@
         "name": "Baekerei-Neumeyer",
 
         "collections": {
-            "PagesData": {
-                "name": "PagesData"
+            "TortensortimentData": {
+                "name": "TortensortimentData"
             },
             
             "LoginData": {
@@ -54,7 +54,8 @@
                 "font-family: 'Roboto', sans-serif;": "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
                 "font-family: 'Lato', sans-serif;": "https://fonts.googleapis.com/css2?family=Lato&display=swap",
                 "font-family: 'Roboto Slab', serif;": "https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap",
-                "font-family: 'Niconne', cursive;":"https://fonts.googleapis.com/css2?family=Niconne&display=swap"
+                "font-family: 'Niconne', cursive;":"https://fonts.googleapis.com/css2?family=Niconne&display=swap",
+                "font-family: 'Mali', cursive;": "https://fonts.googleapis.com/css2?family=Mali&display=swap"
             },
 
             "icons": {
@@ -108,6 +109,25 @@
                 "not_valid_email": "Die angebene E-Mail Adresse '%s' ist nicht korrekt!",
                 "error_while_sending_msg": "Ihre Nachricht konnte leider nicht versendet werden! Es handelt sich hierbei womöglich um ein Server-Problem."
             }
+        },
+
+        "dashboard_route": {
+            "methods": ["GET"],
+            "rule": "/dashboard",
+            "page_path": "admin/dashboard.html",
+            "head_title": "Dashboard",
+            "heading_title": "Dashboard",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!"
+            }
+        },
+
+        "tortensortiment_route": {
+            "methods": ["GET"],
+            "rule": "/tortensortiment",
+            "page_path": "tortensortiment.html",
+            "head_title": "Tortensortiment",
+            "heading_title": "Tortensortiment"
         },
 
         "about_route": {

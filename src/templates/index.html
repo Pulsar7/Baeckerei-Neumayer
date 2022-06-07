@@ -1,21 +1,42 @@
 {% extends regular_data.base_filepath %}
 {% block content %}
     <div class="content">
-        <div class="container">
-            {{welcome_front_text}}
+        <div class="left_row">
+            <div class="container">
+                <h2>Herzlich Willkommen</h2>
+                <img src="/img/familienbetrieb.jpg">
+                <p>
+                    Im Jahre 1904 kaufte Herr Bartholomäus Neumayer, der Urgroßvater des heutigen Besitzers, die Bäckerei in der
+                    Regensurger
+                    Str. 16, aus dieser Zeit stammt der noch heute bekannte Hausname "Barthlbeck". Seit 1999 führt Willibald Neumayer
+                    mit seiner Frau Dagmar in 4. Generation den Familienbetrieb.
+                </p>
+            </div>
+            <div class="container">
+                <h2>Öffnungszeiten</h2>
+                <table>
+                    <tr>
+                        <td>Mo, Di, Do, Fr</td>
+                        <td>5.00 – 12.00 Uhr, 14.00 – 18.00 Uhr</td>
+                    </tr>
+                    <tr>
+                        <td>Mi, Sa</td>
+                        <td>5.00 – 12.00 Uhr</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="container">
-            <h2>Öffnungszeiten</h2>
-            <table>
-                <tr>
-                    <td>Mo, Di, Do, Fr</td>
-                    <td>5.00 – 12.00 Uhr, 14.00 – 18.00 Uhr</td>
-                </tr>
-                <tr>
-                    <td>Mi, Sa</td>
-                    <td>5.00 – 12.00 Uhr</td>
-                </tr>
-            </table>
+        <div class="right_row">
+            <div class="container" style="padding: 0px;">
+                <img src="/img/dreikant_bisquitkuchen.jpg">
+                <div class="low_container">
+                    <p>
+                        Als besondere Spezialität des Hauses und regional bekannt, gilt der "Dreikant", ein wie der
+                        Name schon sagt, dreieckiger
+                        Bisquitkuchen mit dunkler Glasur.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

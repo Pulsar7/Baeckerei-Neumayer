@@ -56,8 +56,11 @@ a {
     transition: 0.3s;
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width: 800px) {
     form {
-        padding: 1% 5%;
+        padding: 5% 0%;
+        box-shadow: none;
+        border-radius: 0px;
+        border: none;
     }
 }

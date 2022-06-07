@@ -16,9 +16,15 @@ class DATABASE():
         # Collections
         self.login_data = self.db[collections['LoginData']['name']]
         self.user_data = self.db[collections['UserData']['name']]
-        self.pages_data = self.db[collections['PagesData']['name']]
+        self.tortensortiment_data = self.db[collections['TortensortimentData']['name']]
         self.contact_data = self.db[collections['ContactData']['name']]
         #
+
+    def get_tortensortiment(self):
+        mydoc = self.tortensortiment_data.find()
+        for x in mydoc:
+            print(x)
+        return mydoc
     
     def check_if_logged_in(self,session_data):
         # session_data = {"session_key":"","session_id":"","username":""}

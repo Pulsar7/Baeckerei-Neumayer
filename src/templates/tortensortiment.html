@@ -1,0 +1,16 @@
+{% extends regular_data.base_filepath %}
+{% block content %}
+<div class="content">
+    {% for torte in tortensortiment %}
+    <div class="card">
+        <img src="{{tortensortiment[torte]['img_url']}}">
+        <div class="description_container">
+            <h2>{{tortensortiment[torte]['title']}}</h2>
+            <p>
+                {{tortensortiment[torte]['description']}}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

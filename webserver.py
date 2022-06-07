@@ -34,6 +34,8 @@ anfahrt_route = conf.get('Requests','anfahrt_route')
 kontakt_route = conf.get('Requests','kontakt_route')
 impressum_route = conf.get('Requests','impressum_route')
 login_route = conf.get('Requests','login_route')
+tortensortiment_route = conf.get('Requests','tortensortiment_route')
+dashboard_route = conf.get('Requests','dashboard_route')
 
 webserver.add_url_rule(rule = index_route['rule'], view_func = requests.index_route, 
     methods = index_route['methods'])
@@ -49,6 +51,10 @@ webserver.add_url_rule(rule = impressum_route['rule'], view_func = requests.impr
     methods = impressum_route['methods'])
 webserver.add_url_rule(rule = login_route['rule'], view_func = requests.login_route, 
     methods = login_route['methods'])
+webserver.add_url_rule(rule = tortensortiment_route['rule'], view_func = requests.tortensortiment_route, 
+    methods = tortensortiment_route['methods'])
+webserver.add_url_rule(rule = dashboard_route['rule'], view_func = requests.dashboard_route, 
+    methods = dashboard_route['methods'])
 
 # Errors/Func
 not_found_route = conf.get('Requests','404_route')
