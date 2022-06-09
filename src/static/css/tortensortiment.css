@@ -1,11 +1,20 @@
+.card_container {
+    margin-bottom: 0%;
+    margin-top: 0%;
+}
+
 .card {
     padding: 0px;
     float: left;
-    max-width: 400px;
+    max-width: 300px;
     height: auto;
-    margin-right: 1%;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
     background-color: white;
+    border-radius: 7px;
+    width: 100%;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    margin-right: 1%;
 }
 
 .card img {
@@ -16,14 +25,123 @@
     border-radius: 10px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
+    width: 100%;
+}
+
+.card:hover {
+    box-shadow: none;
+    transition-duration: 0.3s;
+}
+
+hr {
+    width: 100%;
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 10px;
 }
 
 .description_container {
     padding: 30px;
+    padding-top: 0px;
+    text-align: center;
+}
+
+.description_container h5 {
+    text-align: right;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgba(65, 105, 225, 0.692);
+    line-height: normal;
+}
+
+.footer {
+    margin-top: 100%;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    border-radius: 10px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+}
+
+.modal-content p {
+    text-align: justify;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    height: auto;
 }
 
 @media screen and (max-width: 800px) {
     .description_container {
         padding: 20px;
     }
+
+    .card {
+        width: 100%;
+        float: none;
+        display: block;
+        margin-right: 0;
+        max-width: 100%;
+        margin-bottom: 2%;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .modal img {
+        width: 100%;
+        max-width: 400px;
+        border-radius: 10px;
+        height: auto;
+    }
+
 }

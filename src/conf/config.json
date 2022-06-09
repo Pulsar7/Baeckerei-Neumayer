@@ -1,11 +1,12 @@
 {
     "Webserver": {
-        "name": "Bäckerei Neumeyer",
+        "name": "Bäckerei Neumayer",
         "host": "0.0.0.0",
         "port": 5000,
         "template_folder": "src/templates/",
         "static_folder": "src/static/",
-        "secret_key": "asoipdjfhlkasdhf8974365zuiasdhfkjasdgfjhagsdfjhasfdHAJDFAHD"
+        "secret_key": "lkjh<sydkhjlasdxklfhjashdljkfashdoikljfahsdljkfhbasdjhklfghasdkjhfgasdkjuhf",
+        "img_upload_folder": "src/static/img/uploaded/"
     },
 
     "Logging": {
@@ -14,20 +15,26 @@
 
     "Database": {
         "connection_url": "mongodb://localhost:27017/",
-        "name": "Baekerei-Neumeyer",
+        "name": "Baekerei-Neumayer",
 
         "collections": {
             "TortensortimentData": {
                 "name": "TortensortimentData",
-                "values": ["torten_name","torten_img_path","torten_description"]
+                "values": ["torten_name","torten_img_path","torten_description","upload_zeitpunkt"],
+                "empty_data": {
+                    "torten_name": "Keine Torte vorhanden",
+                    "torten_img_path": "/img/empty_tortensortiment.png",
+                    "torten_description": "Es wurde noch keine Torte hochgeladen.",
+                    "upload_zeitpunkt": "Jetzt"
+                }
             },
             
             "LoginData": {
                 "name": "LoginData",
                 "values": ["username","session_id","session_key","session_start_time","login_clock"],
-                "session_id_len": 15,
-                "session_key_len": 20,
-                "max_login_time_in_sec": 5000
+                "session_id_len": 10,
+                "session_key_len": 15,
+                "max_login_time_in_sec": 8000
             },
             
             "UserData": {
@@ -35,9 +42,18 @@
                 "values": ["username","password"]
             },
 
+            "TeamData": {
+                "name": "TeamData",
+                "values": ["vorname","nachname","arbeitsplatz","informationen"]
+            },
+
             "ContactData": {
                 "name": "ContactData",
-                "values": ["vorname","nachname","email","telefon","anmerkung","time"]
+                "values": ["vorname","nachname","email","telefon","anmerkung","time"],
+                "empty_data": {
+                    "vorname": "Keine Anmerkung", "nachname": "vorhanden",
+                    "email": "keine-anmerkung@neumayer.de", "telefon": "0123456789", "anmerkung": "Ich find die Seite eigentlich relativ schlecht. Guten Tag.", "time": "jetzt"
+                }
             }
         }
     },
@@ -66,7 +82,9 @@
             },
 
             "icons": {
-                "Cloudflare-Font-Awesome": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                "Cloudflare-Font-Awesome-4": "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' type='text/css'>",
+                "Google-Font-Team-ICON": "<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0'>",
+                "Cloudflare-Font-Awesome-5": "<script src='/js/a076d05399.js' crossorigin='anonymous'></script>"
             },
 
             "other": {}
@@ -77,7 +95,7 @@
             "rule": "/",
             "page_path": "index.html",
             "head_title": "HOME",
-            "heading_title": "Bäckerei Neumeyer"
+            "heading_title": "Bäckerei Neumayer"
         },
 
         "service_route": {
@@ -86,6 +104,64 @@
             "page_path": "service.html",
             "head_title": "Service",
             "heading_title": "Service"
+        },
+
+        "tortensortiment_remove_route": {
+            "methods": ["POST"],
+            "rule": "/tortensortiment_remove",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "could_not_remove_torte": "Die Torte mit dem Namen '%s' konnte nicht gelöscht werden!"
+            }
+        },
+
+        "tortensortiment_add_route": {
+            "methods": ["POST"],
+            "rule": "/tortensortiment_add",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "not_a_valid_img_file": "Dieser Datei-Typ wird hier nicht unterstützt!"
+            }
+        },
+
+        "logout_all_devices_route": {
+            "methods": ["GET"],
+            "rule": "/logout_all_devices",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!"
+            }
+        },
+
+        "logout_other_device_route": {
+            "methods": ["GET"],
+            "rule": "/logout_other_device/<string:session_id>",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "logged_out_another_device": "Sie haben ein anderes Gerät mit der Session-ID %s abgemeldet"
+            }
+        },
+
+        "pages_editor_route": {
+            "methods": ["GET"],
+            "rule": "/pages_editor",
+            "page_path": "admin/pages_editor.html",
+            "head_title": "Editor",
+            "heading_title": "Editor",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!"
+            }
         },
 
         "anfahrt_route": {
@@ -102,6 +178,10 @@
             "page_path": "",
             "head_title": "",
             "heading_title": ""
+        },
+
+        "occasions_route": {
+            "methods": []
         },
         
         "impressum_route": {
@@ -124,6 +204,14 @@
                 "not_valid_email": "Die angebene E-Mail Adresse '%s' ist nicht korrekt!",
                 "error_while_sending_msg": "Ihre Nachricht konnte leider nicht versendet werden! Es handelt sich hierbei womöglich um ein Server-Problem."
             }
+        },
+
+        "team_route": {
+            "methods": ["GET"],
+            "rule": "/team",
+            "page_path": "team.html",
+            "head_title": "Team",
+            "heading_title": "Team"
         },
 
         "dashboard_route": {

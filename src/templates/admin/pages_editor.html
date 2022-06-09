@@ -1,0 +1,40 @@
+{% extends regular_data.base_filepath %}
+{% block content %}
+<div class="content">
+    <div class="container">
+        <h2 id="untertitel">Tortensortiment</h2>
+        <h4 style="text-align: right;">Derzeit {{tortensortiment_len}} gespeichert</h4>
+        <form action="{{url_for('tortensortiment_add_route')}}" method="POST" enctype="multipart/form-data">
+            <input type="text" placeholder="Torten-Name" name="torten_name" required/>
+            <label for="torten_img"><b>Torten-Bild</b></label>
+            <input style="border: 2px solid limegreen;" type="file" name="torten_img" required/>
+            <input type="text" placeholder="Torten-Beschreibung" name="torten_description" required />
+            <input type="submit" class="create_submit" id="submit" value="Erstellen" />
+        </form>
+        {% if tortensortiment_len > 10 %}
+        <details>
+            <summary><h3>Verfügbar sind:</h3></summary>
+            <ul>
+                {% for torte in tortensortiment %}
+                <li>{{tortensortiment[torte]['torten_name']}}</li>
+                {% endfor %}
+            </ul>
+        </details>
+        {% else %}
+        <h3>Verfügbar sind:</h3>
+        <ul>
+            {% for torte in tortensortiment %}
+            <li>{{tortensortiment[torte]['torten_name']}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="{{url_for('tortensortiment_remove_route')}}" method="POST">
+            <input type="text" placeholder="Torten-Name" name="torten_name" required/>
+            <input id="submit" class="delete_submit" type="submit" value="Löschen" />
+        </form>
+    </div>
+    <div class="container">
+        <h2 id="untertitel">Team</h2>
+    </div>
+</div>
+{% endblock %}

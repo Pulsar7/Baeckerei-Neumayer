@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
+        {% autoescape false %}
         <title>{{regular_data['head_title']}}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +15,9 @@
         <link href="{{regular_data['fonts'][font_element]}}" rel="stylesheet">
         {% endfor %}
         {% for icon_element in regular_data.icons %}
-        <link rel="stylesheet" href="{{regular_data['icons'][icon_element]}}">
+        {{regular_data['icons'][icon_element]}}
         {% endfor %}
+        {% endautoescape %}
     </head>
     <body lang="de">
         <div class="heading">
@@ -24,22 +26,33 @@
         <div class="topnav" id="myTopnav">
             <a href="{{url_for('index_route')}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
             <a href="{{url_for('kontakt_route')}}"><i class="fa fa-address-book" aria-hidden="true"></i> Kontakt</a>
+            <a href="{{url_for('team_route')}}"><i class="fas fa-users"></i> Team</a>
             <div class="dropdown">
                 <button class="dropbtn">
                     Torten
                     <i class="fa fa-caret-down"></i></button>
                 <div class="dropdown-content">
-                    <a href="{{url_for('tortensortiment_route')}}">Tortensortiment</a>
+                    <a href="{{url_for('tortensortiment_route')}}"><i class="fas fa-database"></i> Tortensortiment</a>
                     <a href="#Fototorten"><i class="fa fa-camera-retro" aria-hidden="true"></i> Fototorten</a>
-                    <a href="#Hochzeitstorten">Hochzeitstorten</a>
+                    <a href="#Hochzeitstorten"><i class="fas fa-ring"></i> Hochzeitstorten</a>
                     <a href="#Festtagstorten"><i class="fa fa-birthday-cake" aria-hidden="true"></i> Festtagstorten</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Besondere Anlässe
+                    <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="#ostern"><i class="fas fa-egg"></i> Ostern</a>
+                    <a href="#weihnachten"><i class="fa fa-tree" aria-hidden="true"></i> Weihnachten</a>
+                    <a href="#aller_heiligen">Aller Heiligen</a>
                 </div>
             </div>
             <a href="{{url_for('about_route')}}">Über Uns</a>
             <a href="{{url_for('service_route')}}">Service</a>
             <a href="{{url_for('anfahrt_route')}}"><i class="fa fa-car" aria-hidden="true"></i> Anfahrt</a>
             <a href="{{url_for('impressum_route')}}">Impressum</a>
-            <a href="{{url_for('login_route')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+            <a href="{{url_for('login_route')}}"><i class="fas fa-sign-in-alt"></i> Login</a>
             <a href="javascript:void(0);" class="icon" onclick="NavbarFunction()">&#9776;</a>
         </div>
         {% with messages = get_flashed_messages() %}
@@ -50,16 +63,14 @@
         {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
-    </body>
-    <footer>
         <div class="footer">
-            <p id="text">© 2022 Bäckerei Neumeyer</p>
+            <p id="text">© 2022 Bäckerei Neumayer</p>
             <div class="links">
                 <a id="footer_link" href="{{url_for('impressum_route')}}">Impressum</a>
                 <a id="footer_link" href="{{url_for('kontakt_route')}}">Kontakt</a>
             </div>
         </div>
-    </footer>
+    </body>
 </html>
 <style>
     .heading {

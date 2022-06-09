@@ -1,9 +1,10 @@
 """
 Bäckerei Neumeyer/Request Handler/Python 3.8.10
 """
-import sys
+import sys,os
 from flask import (render_template, redirect, send_from_directory, request, url_for, session, flash)
 sys.dont_write_bytecode = True
+from datetime import datetime
 
 class REQUESTS():
     def __init__(self,logger,conf,db,webserver_name):
@@ -35,6 +36,57 @@ class REQUESTS():
             regular_data = regular_data
         )
 
+    def pages_editor_route(self):
+        name = "pages_editor"
+        if (self.db.check_if_logged_in(session) == True):
+            regular_data = self.get_regular_resp_data(name)
+            return render_template(
+                regular_data['page_path'],
+                regular_data = regular_data,
+                tortensortiment_len = self.db.get_number_of_tortensortiment(),
+                tortensortiment = self.db.get_tortensortiment()
+            )
+        else:
+            alert_messages = self.conf.get('Requests','pages_editor_route')['alert_messages']
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
+    def tortensortiment_remove_route(self):
+        alert_messages = self.conf.get('Requests','tortensortiment_remove_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            torten_name = request.form.get('torten_name')
+            status = self.db.tortensortiment_remove_one(torten_name)
+            if (status == True):
+                pass
+            else:
+                flash(alert_messages['could_not_remove_torte']%(torten_name))
+            return redirect(url_for('pages_editor_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
+    def tortensortiment_add_route(self):
+        alert_messages = self.conf.get('Requests','tortensortiment_add_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            torten_name = request.form.get('torten_name')
+            torten_img = request.files['torten_img']
+            torten_description = request.form.get('torten_description')
+            upload_path = self.conf.get('Webserver','img_upload_folder')
+            now = datetime.now()
+            upload_zeitpunkt = f"{now.day}.{now.month}.{now.year}"
+            dateiname = torten_img.filename
+            path = os.path.join(upload_path, dateiname)
+            db_torten_img_path = url_for('img_route',path="uploaded/"+dateiname)
+            torten_img.save(path)
+            if (".jpg" in dateiname or ".png" in dateiname or ".jpeg" in dateiname):
+                self.db.tortensortiment_add_one([torten_name,db_torten_img_path,torten_description,upload_zeitpunkt])
+            else:
+                flash(alert_messages['not_a_valid_img_file'])
+            return redirect(url_for('pages_editor_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
     def service_route(self):
         name = "service"
         regular_data = self.get_regular_resp_data(name)
@@ -50,6 +102,33 @@ class REQUESTS():
             regular_data['page_path'],
             regular_data = regular_data
         )
+
+    def team_route(self):
+        name = "team"
+        regular_data = self.get_regular_resp_data(name)
+        return render_template(
+            regular_data['page_path'],
+            regular_data = regular_data
+        )
+
+    def logout_all_devices_route(self):
+        alert_messages = self.conf.get('Requests','logout_all_devices_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            self.db.logout_all_devices(session)
+            return redirect(url_for('logout_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
+    def logout_other_device_route(self,session_id):
+        alert_messages = self.conf.get('Requests','logout_other_device_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            self.db.delete_other_device(session_id)
+            flash(alert_messages['logged_out_another_device']%(session_id))
+            return redirect(url_for('dashboard_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
 
     def kontakt_route(self):
         name = "kontakt"
@@ -152,7 +231,8 @@ class REQUESTS():
                 session_data = session,
                 number_of_sessions = self.db.get_number_of_sessions(),
                 number_of_users = self.db.get_number_of_users(),
-                open_sessions = self.db.get_open_sessions()
+                open_sessions = self.db.get_open_sessions(),
+                anmerkungen=self.db.get_anmerkungen()
             )
         else:
             flash(alert_messages['need_to_bee_logged_in'])

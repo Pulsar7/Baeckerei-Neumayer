@@ -4,6 +4,8 @@ Bäckerei Neumeyer/Database/Python 3.8.10
 import pymongo,sys,hashlib,os,time,random,string
 from datetime import datetime
 
+from requests import session
+
 sys.dont_write_bytecode = True
 
 class DATABASE():
@@ -24,11 +26,50 @@ class DATABASE():
 
     def get_tortensortiment(self):
         mydoc = self.tortensortiment_data.find()
-        sortiment = []
+        sortiment = {}
+        counter = 0
         for x in mydoc:
-            print(x)
-            sortiment.append(x)
+            counter += 1
+            sortiment[str(counter)] = x
+        if (len(sortiment) == 0):
+            sortiment["0"] = self.collections['TortensortimentData']['empty_data']
         return sortiment
+
+    def tortensortiment_add_one(self,data):
+        values = self.collections['TortensortimentData']['values']
+        query = {}
+        counter = 0
+        for value in values:
+            query[value] = data[counter]
+            counter += 1
+        self.tortensortiment_data.insert_one(query)
+
+    def tortensortiment_remove_one(self,name):
+        counter = 0
+        status = False
+        values = self.collections['TortensortimentData']['values']
+        query = {values[0]:name}
+        for x in self.tortensortiment_data.find(query):
+            counter += 1
+        if (counter > 0):
+            self.tortensortiment_data.delete_one(query)
+            status = True
+        return status
+
+    def logout_all_devices(self,session_data):
+        values = self.collections['LoginData']['values']
+        for x in self.login_data.find():
+            if (session_data[values[1]] != x[values[1]]):
+                self.delete_logged_in_devices(x)
+
+    def delete_other_device(self,session_id):
+        values = self.collections['LoginData']['values']
+        mydoc = self.login_data.find({values[1]:session_id})
+        counter = 0
+        for x in mydoc:
+            counter += 1
+        if (counter > 0):
+            self.login_data.delete_one({values[1]:session_id})
 
     def delete_logged_in_devices(self,session_data):
         values = self.collections['LoginData']['values']
@@ -40,8 +81,6 @@ class DATABASE():
             values[4]: session_data[values[4]]
         }
         self.login_data.delete_many(query)
-        for x in self.login_data.find():
-            print(x)
     
     def check_if_logged_in(self,session_data):
         status = True
@@ -70,7 +109,7 @@ class DATABASE():
                 start = session_data[self.collections['LoginData']['values'][3]]
                 diff = (end-start)
                 if (diff >= self.collections['LoginData']['max_login_time_in_sec']):
-                    self.login_data.delete_one(query)
+                    self.delete_logged_in_devices(query)
                 else:
                     status = True
             else:
@@ -88,6 +127,12 @@ class DATABASE():
     def get_number_of_users(self):
         counter = 0
         for x in self.user_data.find():
+            counter += 1
+        return counter
+
+    def get_number_of_tortensortiment(self):
+        counter = 0
+        for x in self.tortensortiment_data.find():
             counter += 1
         return counter
 
@@ -181,4 +226,14 @@ class DATABASE():
 
     def add_contact_message(self,message_data):
         return False
+
+    def get_anmerkungen(self):
+        anmerkungen = {}
+        counter = 0
+        for x in self.contact_data.find():
+            counter += 1
+            anmerkungen[str(counter)] = x
+        if (len(anmerkungen) == 0):
+            anmerkungen["0"] = self.collections['ContactData']['empty_data']
+        return anmerkungen
 

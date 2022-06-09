@@ -116,6 +116,11 @@ hr {
     background-color: aliceblue;
 }
 
+#untertitel {
+    font-size: 2rem;
+    font-family: 'Mali', cursive;
+}
+
 
 /* Foot */
 
@@ -164,6 +169,7 @@ hr {
 
     .content {
         margin: 5% 2%;
+        text-align: justify;
     }
 
     .heading {
@@ -188,5 +194,6 @@ hr {
 
     .footer {
         border-radius: 0px;
+        margin-top: 100%;
     }
 }

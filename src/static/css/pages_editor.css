@@ -1,0 +1,43 @@
+h4 {
+    font-weight: bold;
+    color: limegreen;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+    margin-bottom: 3%;
+}
+
+input {
+    width: 100%;
+    max-width: 100%;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    padding-left: 15px;
+    margin-bottom: 1%;
+    text-align: left;
+}
+
+input:active {
+    border: 2px solid limegreen;
+}
+
+
+#submit {
+    text-align: center;
+    cursor: pointer;
+}
+
+.delete_submit, .create_submit {
+    background-color: rgba(197, 15, 15, 0.808);
+    outline: none;
+    border: 2px solid rgba(255, 0, 0, 0.685);
+    color: whitesmoke;
+    border-radius: 3px;
+}
+
+.create_submit {
+    background-color: rgba(31, 184, 31, 0.842);
+    border: 2px solid limegreen;
+}
