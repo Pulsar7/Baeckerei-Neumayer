@@ -8,7 +8,7 @@
             <input type="text" placeholder="Torten-Name" name="torten_name" required/>
             <label for="torten_img"><b>Torten-Bild</b></label>
             <input style="border: 2px solid limegreen;" type="file" name="torten_img" required/>
-            <input type="text" placeholder="Torten-Beschreibung" name="torten_description" required />
+            <textarea type="text" name="torten_description" required>Torten-Beschreibung</textarea>
             <input type="submit" class="create_submit" id="submit" value="Erstellen" />
         </form>
         {% if tortensortiment_len > 10 %}
@@ -29,12 +29,28 @@
         </ul>
         {% endif %}
         <form action="{{url_for('tortensortiment_remove_route')}}" method="POST">
+            <label for="torten_name">Geben Sie bitte zur Bestätigung noch einmal den Namen der Torten ein:</label>
             <input type="text" placeholder="Torten-Name" name="torten_name" required/>
             <input id="submit" class="delete_submit" type="submit" value="Löschen" />
         </form>
     </div>
     <div class="container">
         <h2 id="untertitel">Team</h2>
+        <form action="{{url_for('add_team_member_route')}}" method="POST" enctype="multipart/form-data">
+            <input type="text" placeholder="Vorname" name="vorname" required />
+            <input type="text" placeholder="Nachname" name="nachname" required />
+            <label for="member_img"><b>Profilbild</b></label>
+            <input style="border: 2px solid limegreen;" type="file" name="member_img" required />
+            <input type="text" placeholder="Arbeitsplatz" name="arbeitsplatz" required />
+            <textarea type="text" name="informationen" required>Informationen</textarea>
+            <input type="submit" class="create_submit" id="submit" value="Erstellen" />
+        </form>
+        <form action="{{url_for('remove_team_member_route')}}" method="POST">
+            <label for="torten_name">Geben Sie bitte zur Bestätigung noch einmal den Vor- & Nachnamen ein:</label>
+            <input type="text" placeholder="Vorname" name="vorname" required />
+            <input type="text" placeholder="Nachname" name="nachname" required />
+            <input id="submit" class="delete_submit" type="submit" value="Löschen" />
+        </form>
     </div>
 </div>
 {% endblock %}

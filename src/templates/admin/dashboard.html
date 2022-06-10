@@ -20,6 +20,14 @@
                 <h4>Benutzer</h4>
                 <p>{{number_of_users}}</p>
             </div>
+            <div class="dash_card">
+                <h4>Tortensortiment</h4>
+                <p>{{number_of_tortensortiment}}</p>
+            </div>
+            <div class="dash_card">
+                <h4>Team</h4>
+                <p>{{number_of_team}}</p>
+            </div>
         </div>
     </div><br><br><br>
     <div class="wrap_container" style="margin-top: 2%;">
@@ -31,7 +39,7 @@
                     aria-hidden="true"></i> <b style="color:limegreen;text-align: right;">ICH</b></h4>
             {% else %}
             <div class="dash_card_plus" style="border: 2px solid rgba(43, 165, 43, 0.527);">
-                <a href="{{url_for('logout_other_device_route',session_id=open_sessions[sitzung]['session_id'])}}" id="logout_other_device_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <a href="{{url_for('logout_other_device_route',session_id=open_sessions[sitzung]['session_id'])}}" id="trash_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 <h4>{{open_sessions[sitzung]['username']}}</h4>
             {% endif %}
                 <p>Session-ID: <b>{{open_sessions[sitzung]['session_id']}}</b><br>Session-Key:
@@ -49,6 +57,11 @@
             </div>
             <div id="Modal{{anmerkung_element}}" class="modal">
                 <div class="modal-content">
+                    {% if anmerkungen[anmerkung_element]['id'] != "0" %}
+                    <a href="{{url_for('delete_contact_msg_route',msg_id=anmerkungen[anmerkung_element]['id'])}}" 
+                        id="delete_anmerkung_link"><i
+                            class="fa fa-trash" aria-hidden="true"></i> Löschen</a>
+                    {% endif %}
                     <span class="close" onclick="CloseModal('{{anmerkung_element}}');">&times;</span>
                     <p>E-Mail: <b>{{anmerkungen[anmerkung_element]['email']}}</b></p>
                     <p>Telefon: <b>{{anmerkungen[anmerkung_element]['telefon']}}</b></p>

@@ -108,7 +108,8 @@ class REQUESTS():
         regular_data = self.get_regular_resp_data(name)
         return render_template(
             regular_data['page_path'],
-            regular_data = regular_data
+            regular_data = regular_data,
+            team = self.db.get_team()
         )
 
     def logout_all_devices_route(self):
@@ -125,6 +126,57 @@ class REQUESTS():
         if (self.db.check_if_logged_in(session) == True):
             self.db.delete_other_device(session_id)
             flash(alert_messages['logged_out_another_device']%(session_id))
+            return redirect(url_for('dashboard_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
+    def delete_contact_msg_route(self,msg_id):
+        alert_messages = self.conf.get('Requests','delete_contact_msg_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            status = self.db.delete_contact_message(msg_id)
+            if (status == True):
+                pass
+            else:
+                flash(alert_messages['not_valid_msg_id']%(msg_id))
+            return redirect(url_for('dashboard_route'))
+        else:
+            flash(alert_messages['need_to_be_logged_in'])
+            return redirect(url_for('login_route'))
+    
+    def remove_team_member_route(self):
+        alert_messages = self.conf.get('Requests','add_team_member_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            vorname = request.form.get('vorname')
+            nachname = request.form.get('nachname')
+            status = self.db.delete_team_member(vorname,nachname)
+            if (status == False):
+                flash(alert_messages['not_valid_member_name'])
+            else:
+                pass
+            return redirect(url_for('dashboard_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+    
+    def add_team_member_route(self):
+        alert_messages = self.conf.get('Requests','add_team_member_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            vorname = request.form.get('vorname')
+            nachname = request.form.get('nachname')
+            arbeitsplatz = request.form.get('arbeitsplatz')
+            informationen = request.form.get('informationen')
+            member_img = request.files['member_img']
+            upload_path = self.conf.get('Webserver','img_upload_folder')
+            dateiname = member_img.filename
+            path = os.path.join(upload_path, dateiname)
+            img_path = url_for('img_route', path="uploaded/"+dateiname)
+            member_img.save(path)
+            if (".jpg" in dateiname or ".png" in dateiname or ".jpeg" in dateiname):
+                self.db.add_team_member([vorname,nachname,arbeitsplatz,informationen,img_path])
+            else:
+                flash(alert_messages['not_a_valid_img_file'])
+            
             return redirect(url_for('dashboard_route'))
         else:
             flash(alert_messages['need_to_bee_logged_in'])
@@ -165,7 +217,7 @@ class REQUESTS():
                 status = self.db.add_contact_message(
                     {
                         "vorname": vorname, "nachname": nachname,
-                        "telefon": telefon, "anmerkung": anmerkung
+                        "email": email, "telefon": telefon, "anmerkung": anmerkung
                     }
                 )
                 
@@ -232,7 +284,10 @@ class REQUESTS():
                 number_of_sessions = self.db.get_number_of_sessions(),
                 number_of_users = self.db.get_number_of_users(),
                 open_sessions = self.db.get_open_sessions(),
-                anmerkungen=self.db.get_anmerkungen()
+                anmerkungen=self.db.get_anmerkungen(),
+                number_of_anmerkungen = self.db.get_number_of_anmerkungen(),
+                number_of_tortensortiment = self.db.get_number_of_tortensortiment(),
+                number_of_team = self.db.get_number_of_team()
             )
         else:
             flash(alert_messages['need_to_bee_logged_in'])

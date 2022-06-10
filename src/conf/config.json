@@ -44,15 +44,23 @@
 
             "TeamData": {
                 "name": "TeamData",
-                "values": ["vorname","nachname","arbeitsplatz","informationen"]
+                "values": ["vorname","nachname","arbeitsplatz","informationen","img_path"],
+                "empty_data": {
+                    "vorname": "Vorname",
+                    "nachname": "Nachname", "arbeitsplatz": "Arbeitsplatz", "informationen": "Informationen...",
+                    "img_path": "/img/empty_team_member.png"
+                }
             },
 
             "ContactData": {
                 "name": "ContactData",
-                "values": ["vorname","nachname","email","telefon","anmerkung","time"],
+                "msg_id_len": 17,
+                "values": ["vorname","nachname","email","telefon","anmerkung","time","id"],
                 "empty_data": {
                     "vorname": "Keine Anmerkung", "nachname": "vorhanden",
-                    "email": "keine-anmerkung@neumayer.de", "telefon": "0123456789", "anmerkung": "Ich find die Seite eigentlich relativ schlecht. Guten Tag.", "time": "jetzt"
+                    "email": "keine-anmerkung@neumayer.de", "telefon": "0123456789", 
+                    "anmerkung": "Ich find die Seite eigentlich relativ schlecht. Guten Tag.", 
+                    "time": "jetzt", "id": "0"
                 }
             }
         }
@@ -181,7 +189,11 @@
         },
 
         "occasions_route": {
-            "methods": []
+            "methods": ["GET"],
+            "rule": "/occasions",
+            "page_path": "",
+            "head_title": "Besondere Anlässe",
+            "heading_title": "Besondere Anlässe"
         },
         
         "impressum_route": {
@@ -206,12 +218,45 @@
             }
         },
 
+        "delete_contact_msg_route": {
+            "methods": ["GET"],
+            "rule": "/delete_contact_msg/<string:msg_id>",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "not_valid_msg_id": "Die Kontakt-Nachricht mit der ID %s existiert nicht!"
+            }
+        },
+
         "team_route": {
             "methods": ["GET"],
             "rule": "/team",
             "page_path": "team.html",
             "head_title": "Team",
             "heading_title": "Team"
+        },
+
+        "add_team_member_route": {
+            "methods": ["POST"],
+            "rule": "/add_team_member",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "not_a_valid_img_file": "Dieser Datei-Typ wird hier nicht unterstützt!"
+            }
+        },
+
+        "remove_team_member_route": {
+            "methods": ["POST"],
+            "rule": "/remove_team_member",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "not_valid_member_name": "Der angegbene Vor- oder/und Nachname konnte nicht gefunden werden!"
+            }
         },
 
         "dashboard_route": {

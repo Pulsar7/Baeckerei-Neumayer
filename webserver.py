@@ -20,6 +20,7 @@ webserver = Flask(
     template_folder = conf.get('Webserver','template_folder'),
     static_folder = conf.get('Webserver','static_folder')
 )
+# webserver.upload_folder = conf.get('Webserver','img_upload_folder')
 webserver.secret_key = conf.get('Webserver','secret_key')
 db = database.DATABASE(logger,conf)
 requests = request_handler.REQUESTS(logger,conf,db,webserver_name)
@@ -37,6 +38,15 @@ login_route = conf.get('Requests','login_route')
 tortensortiment_route = conf.get('Requests','tortensortiment_route')
 dashboard_route = conf.get('Requests','dashboard_route')
 logout_route = conf.get('Requests','logout_route')
+team_route = conf.get('Requests','team_route')
+logout_all_devices_route = conf.get('Requests','logout_all_devices_route')
+logout_other_device_route = conf.get('Requests','logout_other_device_route')
+pages_editor_route = conf.get('Requests','pages_editor_route')
+tortensortiment_remove_route = conf.get('Requests','tortensortiment_remove_route')
+tortensortiment_add_route = conf.get('Requests','tortensortiment_add_route')
+delete_contact_msg_route = conf.get('Requests','delete_contact_msg_route')
+add_team_member_route = conf.get('Requests','add_team_member_route')
+remove_team_member_route = conf.get('Requests','remove_team_member_route')
 
 webserver.add_url_rule(rule = index_route['rule'], view_func = requests.index_route, 
     methods = index_route['methods'])
@@ -57,9 +67,25 @@ webserver.add_url_rule(rule = tortensortiment_route['rule'], view_func = request
 webserver.add_url_rule(rule = dashboard_route['rule'], view_func = requests.dashboard_route, 
     methods = dashboard_route['methods'])
 webserver.add_url_rule(rule = logout_route['rule'], view_func = requests.logout_route,
-    methods = logout_route['methods']
-)
-
+    methods = logout_route['methods'])
+webserver.add_url_rule(rule = team_route['rule'], view_func = requests.team_route,
+    methods = team_route['methods'])
+webserver.add_url_rule(rule = logout_all_devices_route['rule'], view_func = requests.logout_all_devices_route,
+    methods = logout_all_devices_route['methods'])
+webserver.add_url_rule(rule = logout_other_device_route['rule'], view_func = requests.logout_other_device_route,
+    methods = logout_other_device_route['methods'])
+webserver.add_url_rule(rule = pages_editor_route['rule'], view_func = requests.pages_editor_route,
+    methods = pages_editor_route['methods'])
+webserver.add_url_rule(rule = tortensortiment_remove_route['rule'], view_func = requests.tortensortiment_remove_route,
+    methods = tortensortiment_remove_route['methods'])
+webserver.add_url_rule(rule = tortensortiment_add_route['rule'], view_func = requests.tortensortiment_add_route,
+    methods = tortensortiment_add_route['methods'])
+webserver.add_url_rule(rule = delete_contact_msg_route['rule'], view_func = requests.delete_contact_msg_route,
+    methods = delete_contact_msg_route['methods'])
+webserver.add_url_rule(rule = add_team_member_route['rule'], view_func = requests.add_team_member_route,
+    methods = add_team_member_route['methods'])
+webserver.add_url_rule(rule = remove_team_member_route['rule'], view_func = requests.remove_team_member_route,
+    methods = remove_team_member_route['methods'])
 
 # Errors/Func
 not_found_route = conf.get('Requests','404_route')

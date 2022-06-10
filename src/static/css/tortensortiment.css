@@ -94,6 +94,7 @@ hr {
 
 .modal-content p {
     text-align: justify;
+    overflow: auto;
 }
 
 /* The Close Button */
@@ -117,6 +118,7 @@ hr {
     max-width: 500px;
     border-radius: 10px;
     height: auto;
+    overflow: auto;
 }
 
 @media screen and (max-width: 800px) {

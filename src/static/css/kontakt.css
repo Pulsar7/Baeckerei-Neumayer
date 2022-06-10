@@ -5,10 +5,7 @@
 form {
     padding: 1% 20%;
     text-align: left;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
     border-radius: 30px;
-    border-left-style: dotted;
-    border-left: 2px solid lavender;
 }
 
 input[type=text] {

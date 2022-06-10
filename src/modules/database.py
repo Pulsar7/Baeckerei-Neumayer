@@ -22,7 +22,44 @@ class DATABASE():
         self.user_data = self.db[collections['UserData']['name']]
         self.tortensortiment_data = self.db[collections['TortensortimentData']['name']]
         self.contact_data = self.db[collections['ContactData']['name']]
+        self.team_data = self.db[collections['TeamData']['name']]
         #
+
+    def get_team(self):
+        mydoc = self.team_data.find()
+        team = {}
+        counter = 0
+        for x in mydoc:
+            counter += 1
+            team[str(counter)] = x
+        sorted_team = {}
+        for element in team:
+            sorted_team[element] = team[str(counter)]
+            counter -= 1
+        if (len(team) == 0):
+            sorted_team["0"] = self.collections['TeamData']['empty_data']
+        return sorted_team
+
+    def add_team_member(self,member_data):
+        values = self.collections['TeamData']['values']
+        query = {}
+        counter = 0
+        for value in values:
+            query[value] = member_data[counter]
+            counter += 1
+        self.team_data.insert_one(query)
+
+    def delete_team_member(self,vorname,nachname):
+        counter = 0
+        status = False
+        values = self.collections['TeamData']['values']
+        query = {values[0]:vorname,values[1]:nachname}
+        for x in self.team_data.find(query):
+            counter += 1
+        if (counter > 0):
+            self.team_data.delete_one(query)
+            status = True
+        return status
 
     def get_tortensortiment(self):
         mydoc = self.tortensortiment_data.find()
@@ -31,9 +68,13 @@ class DATABASE():
         for x in mydoc:
             counter += 1
             sortiment[str(counter)] = x
+        sorted_sortiment = {}
+        for element in sortiment:
+            sorted_sortiment[element] = sortiment[str(counter)]
+            counter -= 1
         if (len(sortiment) == 0):
-            sortiment["0"] = self.collections['TortensortimentData']['empty_data']
-        return sortiment
+            sorted_sortiment["0"] = self.collections['TortensortimentData']['empty_data']
+        return sorted_sortiment
 
     def tortensortiment_add_one(self,data):
         values = self.collections['TortensortimentData']['values']
@@ -130,6 +171,18 @@ class DATABASE():
             counter += 1
         return counter
 
+    def get_number_of_anmerkungen(self):
+        counter = 0
+        for x in self.contact_data.find():
+            counter += 1
+        return counter
+
+    def get_number_of_team(self):
+        counter = 0
+        for x in self.team_data.find():
+            counter += 1
+        return counter
+
     def get_number_of_tortensortiment(self):
         counter = 0
         for x in self.tortensortiment_data.find():
@@ -163,7 +216,7 @@ class DATABASE():
             values = self.collections['LoginData']['values']
             now = datetime.now()
             zeitpunkt = f"{now.day}.{now.month}.{now.year} - {now.hour}:{now.minute}:{now.second}"
-            session_id = self.generate_session_id()
+            session_id = self.generate_id(self.collections['LoginData']['session_id_len'],self.login_data,values[1])
             session_key = self.generate_session_key()
             now_time = time.time()
             new_session_data = {
@@ -179,23 +232,22 @@ class DATABASE():
                                         values[3]: now_time,
                                         values[4]: zeitpunkt})
             status = True
-        # CHECK IF ITS IN MYDOC
         return (status,new_session_data)
 
-    def generate_session_id(self):
+    def generate_id(self,this_len,database_col,query_element):
         generated_id = None
         while True:
             id_elements = []
-            for i in range(0,self.collections['LoginData']['session_id_len']):
+            for i in range(0,this_len):
                 __choice = random.randint(1,2)
                 if (__choice == 1):
                     id_elements.append(str(random.randint(0,9)))
                 else:
-                    id_elements.append(random.choice(string.ascii_lowercase))
+                    id_elements.append(random.choice(string.ascii_letters))
             generated_id = "".join(id_elements)
-            query = {"session_id":generated_id}
+            query = {query_element:generated_id}
             counter = 0
-            for x in self.login_data.find(query):
+            for x in database_col.find(query):
                 counter += 1
             if (counter > 0):
                 pass
@@ -225,15 +277,39 @@ class DATABASE():
         return generated_key
 
     def add_contact_message(self,message_data):
-        return False
+        values = self.collections['ContactData']['values']
+        now = datetime.now()
+        msg_id = self.generate_id(self.collections['ContactData']['msg_id_len'],self.contact_data,values[6])
+        message_data[values[6]] = msg_id
+        message_data[values[5]] = f"{now.day}.{now.month}.{now.year}"
+        self.contact_data.insert_one(message_data)
+        return True
+
+    def delete_contact_message(self,message_id):
+        status = False
+        values = self.collections['ContactData']['values']
+        query = {values[6]:message_id}
+        counter = 0
+        for x in self.contact_data.find(query):
+            counter += 1
+        if (counter > 0):
+            self.contact_data.delete_one(query)
+            status = True
+        else:
+            pass
+        return status
 
     def get_anmerkungen(self):
         anmerkungen = {}
+        sorted_anmerkungen = {}
         counter = 0
         for x in self.contact_data.find():
             counter += 1
             anmerkungen[str(counter)] = x
+        for anmerkung in anmerkungen:
+            sorted_anmerkungen[anmerkung] = anmerkungen[str(counter)]
+            counter -= 1
         if (len(anmerkungen) == 0):
-            anmerkungen["0"] = self.collections['ContactData']['empty_data']
-        return anmerkungen
+            sorted_anmerkungen["0"] = self.collections['ContactData']['empty_data']
+        return sorted_anmerkungen
 
