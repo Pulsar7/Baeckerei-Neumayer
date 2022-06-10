@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/github/release/dmhendricks/file-icon-vectors.svg?style=flat-square)](https://github.com/Pulsar7/Baeckerei-Neumeyer/releases)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/dmhendricks/file-icon-vectors.svg?style=social)](https://twitter.com/SevenPulsar)
 
-# Bäckerei Neumeyer - Webpage
+# Bäckerei Neumayer - Webpage
 
 :large_orange_diamond: A new version of the webpage [https://baeckerei-neumayer.de](https://baeckerei-neumayer.de)
 
