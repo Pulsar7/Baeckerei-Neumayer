@@ -136,7 +136,7 @@ class REQUESTS():
         if (self.db.check_if_logged_in(session) == True):
             status = self.db.delete_contact_message(msg_id)
             if (status == True):
-                pass
+                flash(alert_messages['deleted_contact_msg']%(msg_id))
             else:
                 flash(alert_messages['not_valid_msg_id']%(msg_id))
             return redirect(url_for('dashboard_route'))
@@ -145,7 +145,7 @@ class REQUESTS():
             return redirect(url_for('login_route'))
     
     def remove_team_member_route(self):
-        alert_messages = self.conf.get('Requests','add_team_member_route')['alert_messages']
+        alert_messages = self.conf.get('Requests','remove_team_member_route')['alert_messages']
         if (self.db.check_if_logged_in(session) == True):
             vorname = request.form.get('vorname')
             nachname = request.form.get('nachname')
@@ -153,7 +153,7 @@ class REQUESTS():
             if (status == False):
                 flash(alert_messages['not_valid_member_name'])
             else:
-                pass
+                flash(alert_messages['removed_team_member']%(vorname,nachname))
             return redirect(url_for('dashboard_route'))
         else:
             flash(alert_messages['need_to_bee_logged_in'])
@@ -174,9 +174,9 @@ class REQUESTS():
             member_img.save(path)
             if (".jpg" in dateiname or ".png" in dateiname or ".jpeg" in dateiname):
                 self.db.add_team_member([vorname,nachname,arbeitsplatz,informationen,img_path])
+                flash(alert_messages['added_team_member']%(vorname,nachname))
             else:
                 flash(alert_messages['not_a_valid_img_file'])
-            
             return redirect(url_for('dashboard_route'))
         else:
             flash(alert_messages['need_to_bee_logged_in'])
@@ -223,6 +223,8 @@ class REQUESTS():
                 
                 if (status == False):
                     flash(alert_messages['error_while_sending_msg'])
+                else:
+                    flash(alert_messages['sent_msg'])
             return redirect(url_for('kontakt_route'))
 
     def impressum_route(self):
@@ -243,9 +245,14 @@ class REQUESTS():
         )
 
     def logout_route(self):
+        alert_messages = self.conf.get('Requests','logout_route')['alert_messages']
         if (self.db.check_if_logged_in(session) == True):
             self.db.delete_logged_in_devices(session)
             session.clear()
+            flash(alert_messages['logged_out'])
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
         return redirect(url_for('index_route'))
 
     def login_route(self):
@@ -268,6 +275,7 @@ class REQUESTS():
                 else:
                     for element in new_session_data:
                         session[element] = new_session_data[element]
+                    flash(alert_messages['logged_in'])
                     return redirect(url_for('dashboard_route'))
         else:
             return redirect(url_for('dashboard_route'))

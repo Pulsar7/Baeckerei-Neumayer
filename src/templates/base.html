@@ -28,9 +28,7 @@
             <a href="{{url_for('kontakt_route')}}"><i class="fa fa-address-book" aria-hidden="true"></i> Kontakt</a>
             <a href="{{url_for('team_route')}}"><i class="fas fa-users"></i> Team</a>
             <div class="dropdown">
-                <button class="dropbtn">
-                    Torten
-                    <i class="fa fa-caret-down"></i></button>
+                <a class="dropbtn">Torten <i class="fa fa-caret-down"></i></a>
                 <div class="dropdown-content">
                     <a href="{{url_for('tortensortiment_route')}}"><i class="fas fa-database"></i> Tortensortiment</a>
                     <a href="#Fototorten"><i class="fa fa-camera-retro" aria-hidden="true"></i> Fototorten</a>
@@ -39,26 +37,27 @@
                 </div>
             </div>
             <div class="dropdown">
-                <button class="dropbtn">
-                    Besondere Anlässe
-                    <i class="fa fa-caret-down"></i></button>
+                <a class="dropbtn">Besondere Anlässe <i class="fa fa-caret-down"></i></a>
                 <div class="dropdown-content">
                     <a href="#ostern"><i class="fas fa-egg"></i> Ostern</a>
                     <a href="#weihnachten"><i class="fa fa-tree" aria-hidden="true"></i> Weihnachten</a>
                     <a href="#aller_heiligen">Aller Heiligen</a>
                 </div>
             </div>
-            <a href="{{url_for('about_route')}}">Über Uns</a>
             <a href="{{url_for('service_route')}}">Service</a>
             <a href="{{url_for('anfahrt_route')}}"><i class="fa fa-car" aria-hidden="true"></i> Anfahrt</a>
             <a href="{{url_for('impressum_route')}}">Impressum</a>
-            <a href="{{url_for('login_route')}}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <!--<a href="{{url_for('login_route')}}"><i class="fas fa-sign-in-alt"></i> Login</a>!-->
             <a href="javascript:void(0);" class="icon" onclick="NavbarFunction()">&#9776;</a>
         </div>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         {% for message in messages %}
-        <div class="alert_container"><p>{{message}}</p></div>
+        {% if regular_data.red_flash_keyword in message %}
+        <div class="alert_container_red"><p>{{message}}</p></div>
+        {% else %}
+        <div class="alert_container_green"><p>{{message}}</p></div>
+        {% endif %}
         {% endfor %}
         {% endif %}
         {% endwith %}

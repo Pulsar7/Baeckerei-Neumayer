@@ -8,7 +8,7 @@
             <input type="text" placeholder="Torten-Name" name="torten_name" required/>
             <label for="torten_img"><b>Torten-Bild</b></label>
             <input style="border: 2px solid limegreen;" type="file" name="torten_img" required/>
-            <textarea type="text" name="torten_description" required>Torten-Beschreibung</textarea>
+            <textarea type="text" name="torten_description" placeholder="Torten-Beschreibung" required></textarea>
             <input type="submit" class="create_submit" id="submit" value="Erstellen" />
         </form>
         {% if tortensortiment_len > 10 %}
@@ -29,7 +29,7 @@
         </ul>
         {% endif %}
         <form action="{{url_for('tortensortiment_remove_route')}}" method="POST">
-            <label for="torten_name">Geben Sie bitte zur Bestätigung noch einmal den Namen der Torten ein:</label>
+            <label for="torten_name">Geben Sie bitte zur Bestätigung noch einmal den Namen der Torte ein:</label>
             <input type="text" placeholder="Torten-Name" name="torten_name" required/>
             <input id="submit" class="delete_submit" type="submit" value="Löschen" />
         </form>
@@ -42,7 +42,7 @@
             <label for="member_img"><b>Profilbild</b></label>
             <input style="border: 2px solid limegreen;" type="file" name="member_img" required />
             <input type="text" placeholder="Arbeitsplatz" name="arbeitsplatz" required />
-            <textarea type="text" name="informationen" required>Informationen</textarea>
+            <textarea type="text" name="informationen" placeholder="Informationen" required></textarea>
             <input type="submit" class="create_submit" id="submit" value="Erstellen" />
         </form>
         <form action="{{url_for('remove_team_member_route')}}" method="POST">

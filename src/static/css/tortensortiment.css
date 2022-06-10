@@ -122,6 +122,11 @@ hr {
 }
 
 @media screen and (max-width: 800px) {
+    .content {
+        margin-left: 7%;
+        margin-right: 7%;
+    }
+
     .description_container {
         padding: 20px;
     }

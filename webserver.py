@@ -108,7 +108,7 @@ webserver.add_url_rule(rule = img_route['rule'], view_func = requests.img_route,
 ########
 
 if (__name__ == '__main__'):
-    os.system("clear") # Linux
+    # os.system("clear") # Linux
     webserver.run(
         host = conf.get('Webserver','host'),
         port = conf.get('Webserver','port'),

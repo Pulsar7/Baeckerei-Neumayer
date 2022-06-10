@@ -62,7 +62,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.alert_container {
+.alert_container_red, .alert_container_green {
     background-color: rgba(190, 30, 30, 0.644);
     border-left: 7px solid rgb(190, 30, 30);
     padding: 7px;
@@ -77,6 +77,11 @@ body {
     margin-bottom: 1%;
     font-family: Arial, Helvetica, sans-serif;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.alert_container_green {
+    background-color: rgba(34, 187, 34, 0.623);
+    border-left: 7px solid limegreen;
 }
 
 .info_box {

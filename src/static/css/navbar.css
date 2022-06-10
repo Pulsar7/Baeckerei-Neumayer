@@ -39,6 +39,7 @@
   background-color: inherit;
   font-family: inherit;
   margin: 0;
+  display: block;
 }
 
 .dropdown-content {

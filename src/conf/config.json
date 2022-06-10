@@ -5,7 +5,7 @@
         "port": 5000,
         "template_folder": "src/templates/",
         "static_folder": "src/static/",
-        "secret_key": "lkjh<sydkhjlasdxklfhjashdljkfashdoikljfahsdljkfhbasdjhklfghasdkjhfgasdkjuhf",
+        "secret_key": "jkalsdfkhjlasdfhjkasdfhiuojafsdhjgasfdguihjafdsiuzghjwaefrugizafwesghjk§%$&§$)IU&/Z$)=&(",
         "img_upload_folder": "src/static/img/uploaded/"
     },
 
@@ -59,7 +59,7 @@
                 "empty_data": {
                     "vorname": "Keine Anmerkung", "nachname": "vorhanden",
                     "email": "keine-anmerkung@neumayer.de", "telefon": "0123456789", 
-                    "anmerkung": "Ich find die Seite eigentlich relativ schlecht. Guten Tag.", 
+                    "anmerkung": "Ich find die Seite eigentlich relativ schlecht. Müsst ihr wissen. Guten Tag.", 
                     "time": "jetzt", "id": "0"
                 }
             }
@@ -68,6 +68,7 @@
 
     "Requests": {
         "regular_data": {
+            "red_flash_keyword": "!",
             "base_filepath": "base.html",
             "heading_banner_img_path": "/img/heading_banner/banner-3.jpg",
 
@@ -138,6 +139,17 @@
             }
         },
 
+        "logs_route": {
+            "methods": ["GET"],
+            "rule": "/logs",
+            "page_path": "admin/logs.html",
+            "head_title": "LOGs",
+            "heading_title": "LOGs",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!"
+            }
+        },
+
         "logout_all_devices_route": {
             "methods": ["GET"],
             "rule": "/logout_all_devices",
@@ -185,7 +197,11 @@
             "rule": "/logout",
             "page_path": "",
             "head_title": "",
-            "heading_title": ""
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in":"Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "logged_out": "Sie haben sich erfolgreich abgemeldet!"
+            }
         },
 
         "occasions_route": {
@@ -214,7 +230,8 @@
             "email_validation": ["@"],
             "alert_messages": {
                 "not_valid_email": "Die angebene E-Mail Adresse '%s' ist nicht korrekt!",
-                "error_while_sending_msg": "Ihre Nachricht konnte leider nicht versendet werden! Es handelt sich hierbei womöglich um ein Server-Problem."
+                "error_while_sending_msg": "Ihre Nachricht konnte leider nicht versendet werden! Es handelt sich hierbei womöglich um ein Server-Problem.",
+                "sent_msg": "Ihre Nachricht wurde erfolgreich versendet"
             }
         },
 
@@ -223,7 +240,8 @@
             "rule": "/delete_contact_msg/<string:msg_id>",
             "alert_messages": {
                 "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
-                "not_valid_msg_id": "Die Kontakt-Nachricht mit der ID %s existiert nicht!"
+                "not_valid_msg_id": "Die Kontakt-Nachricht mit der ID %s existiert nicht!",
+                "deleted_contact_msg": "Die Kontakt-Nachricht mit der ID %s wurde erfolgreich gelöscht"
             }
         },
 
@@ -243,7 +261,8 @@
             "heading_title": "",
             "alert_messages": {
                 "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
-                "not_a_valid_img_file": "Dieser Datei-Typ wird hier nicht unterstützt!"
+                "not_a_valid_img_file": "Dieser Datei-Typ wird hier nicht unterstützt!",
+                "added_team_member": "%s %s wurde als neues Team-Mitglied erfolgreich hinzugefügt"
             }
         },
 
@@ -255,7 +274,8 @@
             "heading_title": "",
             "alert_messages": {
                 "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
-                "not_valid_member_name": "Der angegbene Vor- oder/und Nachname konnte nicht gefunden werden!"
+                "not_valid_member_name": "Der angegbene Vor- oder/und Nachname konnte nicht gefunden werden!",
+                "removed_team_member": "%s %s wurde aus Ihrem Team entfernt"
             }
         },
 
@@ -293,7 +313,8 @@
             "head_title": "LOGIN",
             "heading_title": "Login",
             "alert_messages": {
-                "invalid_login_data": "Es wurden falsche Benutzerdaten angegeben!"
+                "invalid_login_data": "Es wurden falsche Benutzerdaten angegeben!",
+                "logged_in": "Sie haben sich erfolgreich angemeldet"
             }
         },
 
