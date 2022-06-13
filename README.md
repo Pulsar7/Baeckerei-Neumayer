@@ -13,10 +13,13 @@
 
 * :point_right: [Server Explanation](#server-explanation)
 * :point_right: [Server Deployment](#server-deployment)
-* :point_right: [ToDo](#todo)
 * :point_right: [Suggestions & Reports](#suggestions--reports)
 
-## ToDo
+## Server Explanation
+
+The server is running on a specific host and port (modify the config.json - File), default: host: 0.0.0.0 and port: 5000.
+
+## Server Deployment
 
 
 
