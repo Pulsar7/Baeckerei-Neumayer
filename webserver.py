@@ -47,6 +47,11 @@ tortensortiment_add_route = conf.get('Requests','tortensortiment_add_route')
 delete_contact_msg_route = conf.get('Requests','delete_contact_msg_route')
 add_team_member_route = conf.get('Requests','add_team_member_route')
 remove_team_member_route = conf.get('Requests','remove_team_member_route')
+hochzeitstorten_route = conf.get('Requests','hochzeitstorten_route')
+remove_hochzeitstorte_route = conf.get('Requests','remove_hochzeitstorte_route')
+add_hochzeitstorte_route = conf.get('Requests','add_hochzeitstorte_route')
+edit_hochzeitstorte_route = conf.get('Requests','edit_hochzeitstorte_route')
+edit_tortensortiment_route = conf.get('Requests','edit_tortensortiment_route')
 
 webserver.add_url_rule(rule = index_route['rule'], view_func = requests.index_route, 
     methods = index_route['methods'])
@@ -86,6 +91,16 @@ webserver.add_url_rule(rule = add_team_member_route['rule'], view_func = request
     methods = add_team_member_route['methods'])
 webserver.add_url_rule(rule = remove_team_member_route['rule'], view_func = requests.remove_team_member_route,
     methods = remove_team_member_route['methods'])
+webserver.add_url_rule(rule = hochzeitstorten_route['rule'], view_func = requests.hochzeitstorten_route,
+    methods = hochzeitstorten_route['methods'])
+webserver.add_url_rule(rule = remove_hochzeitstorte_route['rule'], view_func = requests.remove_hochzeitstorte_route,
+    methods = remove_hochzeitstorte_route['methods'])
+webserver.add_url_rule(rule = add_hochzeitstorte_route['rule'], view_func = requests.add_hochzeitstorte_route,
+    methods = add_hochzeitstorte_route['methods'])
+webserver.add_url_rule(rule = edit_hochzeitstorte_route['rule'], view_func = requests.edit_hochzeitstorte_route,
+    methods = edit_hochzeitstorte_route['methods'])
+webserver.add_url_rule(rule = edit_tortensortiment_route['rule'], view_func = requests.edit_tortensortiment_route,
+    methods = edit_tortensortiment_route['methods'])
 
 # Errors/Func
 not_found_route = conf.get('Requests','404_route')

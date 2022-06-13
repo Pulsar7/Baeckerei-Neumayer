@@ -1,0 +1,55 @@
+{% extends regular_data.base_filepath %}
+{% block content %}
+<div class="content">
+    <div class="card_container">
+        {% for torte in tortensortiment %}
+        <div class="card" onclick="OpenModal('_{{torte}}')">
+            <img src="{{tortensortiment[torte]['torten_img_path']}}" alt="{{tortensortiment[torte]['torten_name']}}">
+            <div class="description_container">
+                <h5>{{tortensortiment[torte]['upload_zeitpunkt']}}</h5>
+                <h2>{{tortensortiment[torte]['torten_name']}}</h2>
+            </div>
+        </div>
+        <div id="Modal_{{torte}}" class="modal">
+            <div class="modal-content">
+                {% if regular_data.logged_in_status == True %}
+                <a href="#edit" onclick="OpenModal('_edit_{{torte}}');" id="edit_link"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                <a href="#delete" onclick="OpenModal('_delete_{{torte}}');" id="delete_link"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                {% endif %}
+                <span class="close" onclick="CloseModal('_{{torte}}');">&times;</span>
+                <img src="{{tortensortiment[torte]['torten_img_path']}}" alt="{{tortensortiment[torte]['torten_name']}}">
+                <p>{{tortensortiment[torte]['torten_description']}}</p>
+            </div>
+        </div>
+        <div id="Modal_edit_{{torte}}" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="CloseModal('_edit_{{torte}}');">&times;</span>
+                {% if regular_data.logged_in_status == True %}
+                <h3>Edit: "{{tortensortiment[torte]['torten_name']}}"</h3>
+                <form action="{{url_for('edit_tortensortiment_route')}}" method="POST" enctype="multipart/form-data">
+                    <input type="text" placeholder="Geben Sie zur Bestätigung bitte den alten Namen der Torte ein" name="old_torten_name" required/>
+                    <input type="text" placeholder="Neuer Torten-Name" name="new_torten_name"/>
+                    <label for="torten_img"><b>Torten-Bild</b></label>
+                    <input style="border: 2px solid rgb(27, 116, 128);" type="file" name="torten_img" />
+                    <textarea type="text" name="torten_description" placeholder="{{tortensortiment[torte]['torten_description']}}"></textarea>
+                    <input type="submit" class="edit_submit" id="submit" value="Speichern" />
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        <div id="Modal_delete_{{torte}}" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="CloseModal('_delete_{{torte}}');">&times;</span>
+                {% if regular_data.logged_in_status == True %}
+                <h3>Bitte geben Sie zur Bestätigung noch einmal den Torten-Namen ein:</h3>
+                <form action="{{url_for('tortensortiment_remove_route')}}" method="POST" enctype="multipart/form-data">
+                    <input type="text" placeholder="{{tortensortiment[torte]['torten_name']}}" name="torten_name" required />
+                    <input type="submit" class="delete_submit" id="submit" value="Löschen" />
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

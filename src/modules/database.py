@@ -23,6 +23,7 @@ class DATABASE():
         self.tortensortiment_data = self.db[collections['TortensortimentData']['name']]
         self.contact_data = self.db[collections['ContactData']['name']]
         self.team_data = self.db[collections['TeamData']['name']]
+        self.hochzeitstorten_data = self.db[collections['HochzeitstortenData']['name']]
         #
 
     def get_team(self):
@@ -58,6 +59,114 @@ class DATABASE():
             counter += 1
         if (counter > 0):
             self.team_data.delete_one(query)
+            status = True
+        return status
+
+    def get_one_tortensortiment(self,old_torten_name):
+        values = self.collections['TortensortimentData']['values']
+        counter = 0
+        data = None
+        status = False
+        for x in self.tortensortiment_data.find({values[0]:old_torten_name}):
+            counter += 1
+            data = x
+        if (counter > 0):
+            status = True
+        return (status,data)
+
+    def get_one_hochzeitstorte(self,old_torten_name):
+        values = self.collections['HochzeitstortenData']['values']
+        counter = 0
+        data = None
+        status = False
+        for x in self.hochzeitstorten_data.find({values[0]:old_torten_name}):
+            counter += 1
+            data = x
+        if (counter > 0):
+            status = True
+        return (status,data)
+
+    def get_hochzeitstorten(self):
+        mydoc = self.hochzeitstorten_data.find()
+        torten = {}
+        counter = 0
+        for x in mydoc:
+            counter += 1
+            torten[str(counter)] = x
+        sorted_torten = {}
+        for element in torten:
+            sorted_torten[element] = torten[str(counter)]
+            counter -= 1
+        if (len(torten) == 0):
+            sorted_torten["0"] = self.collections['HochzeitstortenData']['empty_data']
+        return sorted_torten
+
+    def add_hochzeitstorte(self,torten_data):
+        values = self.collections['HochzeitstortenData']['values']
+        query = {}
+        counter = 0
+        for value in values:
+            query[value] = torten_data[counter]
+            counter += 1
+        self.hochzeitstorten_data.insert_one(query)
+
+    def update_tortensortiment(self,torten_data):
+        status = False
+        values = self.collections['TortensortimentData']['values']
+        query = {values[0]:torten_data[0]}
+        counter = 0
+        old_query = None
+        for x in self.tortensortiment_data.find(query):
+            counter += 1
+            old_query = x
+        if (counter > 0):
+            new_query = {
+                "$set":{
+                    values[0]: torten_data[1],
+                    values[1]: torten_data[2],
+                    values[2]: torten_data[3],
+                    values[3]: torten_data[4]
+                }
+            }
+            self.tortensortiment_data.update_one(old_query, new_query)
+            status = True
+        else:
+            pass
+        return status
+
+    def update_hochzeitstorte(self,torten_data):
+        status = False
+        values = self.collections['HochzeitstortenData']['values']
+        query = {values[0]:torten_data[0]}
+        counter = 0
+        old_query = None
+        for x in self.hochzeitstorten_data.find(query):
+            counter += 1
+            old_query = x
+        if (counter > 0):
+            new_query = {
+                "$set":{
+                    values[0]: torten_data[1],
+                    values[1]: torten_data[2],
+                    values[2]: torten_data[3],
+                    values[3]: torten_data[4]
+                }
+            }
+            self.hochzeitstorten_data.update_one(old_query, new_query)
+            status = True
+        else:
+            pass
+        return status
+
+    def remove_hochzeitstorte(self,name):
+        counter = 0
+        status = False
+        values = self.collections['HochzeitstortenData']['values']
+        query = {values[0]:name}
+        for x in self.hochzeitstorten_data.find(query):
+            counter += 1
+        if (counter > 0):
+            self.hochzeitstorten_data.delete_one(query)
             status = True
         return status
 
@@ -186,6 +295,12 @@ class DATABASE():
     def get_number_of_tortensortiment(self):
         counter = 0
         for x in self.tortensortiment_data.find():
+            counter += 1
+        return counter
+
+    def get_number_of_hochzeitstorten(self):
+        counter = 0
+        for x in self.hochzeitstorten_data.find():
             counter += 1
         return counter
 

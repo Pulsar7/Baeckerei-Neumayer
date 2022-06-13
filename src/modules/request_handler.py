@@ -17,6 +17,7 @@ class REQUESTS():
         data['css_files']['page_css_file'] = f"/css/{page_name}.css"
         data['head_title'] = self.webserver_name+"/"+self.conf.get('Requests',f'{page_name}_route')['head_title']
         data['heading_title'] = self.conf.get('Requests',f'{page_name}_route')['heading_title']
+        data['logged_in_status'] = self.db.check_if_logged_in(session)
         # data['page_js_file'] = f"/js/{page_name}.js"
         return data
 
@@ -38,13 +39,15 @@ class REQUESTS():
 
     def pages_editor_route(self):
         name = "pages_editor"
-        if (self.db.check_if_logged_in(session) == True):
-            regular_data = self.get_regular_resp_data(name)
+        regular_data = self.get_regular_resp_data(name)
+        if (regular_data['logged_in_status'] == True):
             return render_template(
                 regular_data['page_path'],
                 regular_data = regular_data,
                 tortensortiment_len = self.db.get_number_of_tortensortiment(),
-                tortensortiment = self.db.get_tortensortiment()
+                tortensortiment = self.db.get_tortensortiment(),
+                hochzeitstorten_len = self.db.get_number_of_hochzeitstorten(),
+                hochzeitstorten = self.db.get_hochzeitstorten()
             )
         else:
             alert_messages = self.conf.get('Requests','pages_editor_route')['alert_messages']
@@ -60,7 +63,7 @@ class REQUESTS():
                 pass
             else:
                 flash(alert_messages['could_not_remove_torte']%(torten_name))
-            return redirect(url_for('pages_editor_route'))
+            return redirect(url_for('tortensortiment_route'))
         else:
             flash(alert_messages['need_to_bee_logged_in'])
             return redirect(url_for('login_route'))
@@ -83,6 +86,86 @@ class REQUESTS():
             else:
                 flash(alert_messages['not_a_valid_img_file'])
             return redirect(url_for('pages_editor_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
+    def edit_tortensortiment_route(self):
+        alert_messages = self.conf.get('Requests','edit_tortensortiment_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            old_torten_name = request.form.get('old_torten_name')
+            new_torten_name = request.form.get('new_torten_name')
+            torten_name = new_torten_name
+            if (new_torten_name == "" or new_torten_name == " "):
+                torten_name = old_torten_name
+            (status,data) = self.db.get_one_tortensortiment(old_torten_name)
+            if (status == True):
+                torten_img = request.files['torten_img']
+                torten_description = request.form.get('torten_description')
+                if (torten_description == "" or torten_description == data['torten_description']):
+                    torten_description = data['torten_description']
+                upload_path = self.conf.get('Webserver','img_upload_folder')
+                now = datetime.now()
+                upload_zeitpunkt = f"{now.day}.{now.month}.{now.year}"
+                dateiname = torten_img.filename
+                if (dateiname in data['torten_img_path'] or dateiname == "" or dateiname == " "):
+                    db_torten_img_path = data['torten_img_path']
+                else:
+                    path = os.path.join(upload_path, dateiname)
+                    db_torten_img_path = url_for('img_route',path="uploaded/"+dateiname)
+                    torten_img.save(path)
+                print(db_torten_img_path)
+                if (".jpg" in db_torten_img_path or ".png" in db_torten_img_path or ".jpeg" in db_torten_img_path):
+                    status = self.db.update_tortensortiment([old_torten_name,torten_name,db_torten_img_path,torten_description,upload_zeitpunkt])
+                    if (status == False):
+                        flash(alert_messages['failed_to_update'])
+                    else:
+                        flash(alert_messages['updated_torte']%(torten_name))
+                else:
+                    flash(alert_messages['not_a_valid_img_file'])
+                return redirect(url_for('tortensortiment_route'))
+            else:
+                flash(alert_messages['torte_does_not_exist']%(old_torten_name))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
+    def edit_hochzeitstorte_route(self):
+        alert_messages = self.conf.get('Requests','edit_hochzeitstorte_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            old_torten_name = request.form.get('old_torten_name')
+            new_torten_name = request.form.get('new_torten_name')
+            torten_name = new_torten_name
+            if (new_torten_name == "" or new_torten_name == " "):
+                torten_name = old_torten_name
+            (status,data) = self.db.get_one_hochzeitstorte(old_torten_name)
+            if (status == True):
+                torten_img = request.files['torten_img']
+                torten_description = request.form.get('torten_description')
+                if (torten_description == "" or torten_description == data['torten_description']):
+                    torten_description = data['torten_description']
+                upload_path = self.conf.get('Webserver','img_upload_folder')
+                now = datetime.now()
+                upload_zeitpunkt = f"{now.day}.{now.month}.{now.year}"
+                dateiname = torten_img.filename
+                if (dateiname in data['torten_img_path'] or dateiname == "" or dateiname == " "):
+                    db_torten_img_path = data['torten_img_path']
+                else:
+                    path = os.path.join(upload_path, dateiname)
+                    db_torten_img_path = url_for('img_route',path="uploaded/"+dateiname)
+                    torten_img.save(path)
+                print(db_torten_img_path)
+                if (".jpg" in db_torten_img_path or ".png" in db_torten_img_path or ".jpeg" in db_torten_img_path):
+                    status = self.db.update_hochzeitstorte([old_torten_name,torten_name,db_torten_img_path,torten_description,upload_zeitpunkt])
+                    if (status == False):
+                        flash(alert_messages['failed_to_update'])
+                    else:
+                        flash(alert_messages['updated_torte']%(torten_name))
+                else:
+                    flash(alert_messages['not_a_valid_img_file'])
+                return redirect(url_for('hochzeitstorten_route'))
+            else:
+                flash(alert_messages['torte_does_not_exist']%(old_torten_name))
         else:
             flash(alert_messages['need_to_bee_logged_in'])
             return redirect(url_for('login_route'))
@@ -154,7 +237,52 @@ class REQUESTS():
                 flash(alert_messages['not_valid_member_name'])
             else:
                 flash(alert_messages['removed_team_member']%(vorname,nachname))
-            return redirect(url_for('dashboard_route'))
+            return redirect(url_for('team_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
+    def hochzeitstorten_route(self):
+        name = "hochzeitstorten"
+        regular_data = self.get_regular_resp_data(name)
+        return render_template(
+            regular_data['page_path'],
+            regular_data = regular_data,
+            hochzeitstorten = self.db.get_hochzeitstorten()
+        )
+
+    def remove_hochzeitstorte_route(self):
+        alert_messages = self.conf.get('Requests','remove_hochzeitstorte_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            torten_name = request.form.get('torten_name')
+            status = self.db.remove_hochzeitstorte(torten_name)
+            if (status == True):
+                pass
+            else:
+                flash(alert_messages['could_not_remove_torte']%(torten_name))
+            return redirect(url_for('hochzeitstorten_route'))
+        else:
+            flash(alert_messages['need_to_bee_logged_in'])
+            return redirect(url_for('login_route'))
+
+    def add_hochzeitstorte_route(self):
+        alert_messages = self.conf.get('Requests','add_hochzeitstorte_route')['alert_messages']
+        if (self.db.check_if_logged_in(session) == True):
+            torten_name = request.form.get('torten_name')
+            torten_img = request.files['torten_img']
+            torten_description = request.form.get('torten_description')
+            upload_path = self.conf.get('Webserver','img_upload_folder')
+            now = datetime.now()
+            upload_zeitpunkt = f"{now.day}.{now.month}.{now.year}"
+            dateiname = torten_img.filename
+            path = os.path.join(upload_path, dateiname)
+            db_torten_img_path = url_for('img_route',path="uploaded/"+dateiname)
+            torten_img.save(path)
+            if (".jpg" in dateiname or ".png" in dateiname or ".jpeg" in dateiname):
+                self.db.add_hochzeitstorte([torten_name,db_torten_img_path,torten_description,upload_zeitpunkt])
+            else:
+                flash(alert_messages['not_a_valid_img_file'])
+            return redirect(url_for('hochzeitstorten_route'))
         else:
             flash(alert_messages['need_to_bee_logged_in'])
             return redirect(url_for('login_route'))
@@ -165,7 +293,6 @@ class REQUESTS():
             vorname = request.form.get('vorname')
             nachname = request.form.get('nachname')
             arbeitsplatz = request.form.get('arbeitsplatz')
-            informationen = request.form.get('informationen')
             member_img = request.files['member_img']
             upload_path = self.conf.get('Webserver','img_upload_folder')
             dateiname = member_img.filename
@@ -173,7 +300,7 @@ class REQUESTS():
             img_path = url_for('img_route', path="uploaded/"+dateiname)
             member_img.save(path)
             if (".jpg" in dateiname or ".png" in dateiname or ".jpeg" in dateiname):
-                self.db.add_team_member([vorname,nachname,arbeitsplatz,informationen,img_path])
+                self.db.add_team_member([vorname,nachname,arbeitsplatz,img_path])
                 flash(alert_messages['added_team_member']%(vorname,nachname))
             else:
                 flash(alert_messages['not_a_valid_img_file'])
@@ -258,9 +385,9 @@ class REQUESTS():
     def login_route(self):
         name = "login"
         alert_messages = self.conf.get('Requests','login_route')['alert_messages']
-        if (self.db.check_if_logged_in(session) == False):
+        regular_data = self.get_regular_resp_data(name)
+        if (regular_data['logged_in_status'] == False):
             if (request.method == "GET"):
-                regular_data = self.get_regular_resp_data(name)
                 return render_template(
                     regular_data['page_path'],
                     regular_data = regular_data
@@ -283,8 +410,8 @@ class REQUESTS():
     def dashboard_route(self):
         name = "dashboard"
         alert_messages = self.conf.get('Requests','dashboard_route')['alert_messages']
-        if (self.db.check_if_logged_in(session) == True):
-            regular_data = self.get_regular_resp_data(name)
+        regular_data = self.get_regular_resp_data(name)
+        if (regular_data['logged_in_status'] == True):
             return render_template(
                 regular_data['page_path'],
                 regular_data = regular_data,

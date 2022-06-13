@@ -19,6 +19,10 @@ input, textarea {
     text-align: left;
 }
 
+#untertitel {
+    cursor: pointer;
+}
+
 #submit {
     text-align: center;
     cursor: pointer;
@@ -35,4 +39,13 @@ input, textarea {
 .create_submit {
     background-color: rgba(31, 184, 31, 0.842);
     border: 2px solid limegreen;
+}
+
+#back_link {
+    padding: 7px 15px;
+    background-color: transparent;
+    border: 2px solid cornflowerblue;
+    border-radius: 3px;
+    text-decoration: none;
+    color: cornflowerblue;
 }

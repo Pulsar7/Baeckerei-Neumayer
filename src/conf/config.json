@@ -28,6 +28,17 @@
                     "upload_zeitpunkt": "Jetzt"
                 }
             },
+
+            "HochzeitstortenData": {
+                "name": "HochzeitstortenData",
+                "values": ["torten_name","torten_img_path","torten_description","upload_zeitpunkt"],
+                "empty_data": {
+                    "torten_name": "Keine Torte vorhanden",
+                    "torten_img_path": "/img/empty_hochzeitstorten.jpeg",
+                    "torten_description": "Es wurde noch keine Torte hochgeladen.",
+                    "upload_zeitpunkt": "Jetzt"
+                }
+            },
             
             "LoginData": {
                 "name": "LoginData",
@@ -44,10 +55,10 @@
 
             "TeamData": {
                 "name": "TeamData",
-                "values": ["vorname","nachname","arbeitsplatz","informationen","img_path"],
+                "values": ["vorname","nachname","arbeitsplatz","img_path"],
                 "empty_data": {
                     "vorname": "Vorname",
-                    "nachname": "Nachname", "arbeitsplatz": "Arbeitsplatz", "informationen": "Informationen...",
+                    "nachname": "Nachname", "arbeitsplatz": "Arbeitsplatz",
                     "img_path": "/img/empty_team_member.png"
                 }
             },
@@ -127,6 +138,21 @@
             }
         },
 
+        "edit_tortensortiment_route": {
+            "methods": ["POST"],
+            "rule": "/edit_tortensortiment",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "not_a_valid_img_file": "Dieser Datei-Typ wird hier nicht unterstützt!",
+                "failed_to_update": "Leider konnte die Torte nicht in der Datenbank geändert werden!",
+                "updated_torte": "Die Torte '%s' wurde erfolgreich geändert",
+                "torte_does_not_exist": "Die Torte mit dem Namen '%s' konnte nicht in der Datenbank gefunden werden!"
+            }
+        },
+
         "tortensortiment_add_route": {
             "methods": ["POST"],
             "rule": "/tortensortiment_add",
@@ -136,6 +162,53 @@
             "alert_messages": {
                 "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
                 "not_a_valid_img_file": "Dieser Datei-Typ wird hier nicht unterstützt!"
+            }
+        },
+
+        "remove_hochzeitstorte_route": {
+            "methods": ["POST"],
+            "rule": "/remove_hochzeitstorte",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "could_not_remove_torte": "Die Torte mit dem Namen '%s' konnte nicht gelöscht werden!"
+            }
+        },
+
+        "add_hochzeitstorte_route": {
+            "methods": ["POST"],
+            "rule": "/add_hochzeitstorte",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "not_a_valid_img_file": "Dieser Datei-Typ wird hier nicht unterstützt!"
+            }
+        },
+
+        "hochzeitstorten_route": {
+            "methods": ["GET"],
+            "rule": "/hochzeitstorten",
+            "page_path": "torten/hochzeitstorten.html",
+            "heading_title": "Hochzeitstorten",
+            "head_title": "Hochzeitstorten"
+        },
+
+        "edit_hochzeitstorte_route": {
+            "methods": ["POST"],
+            "rule": "/edit_hochzeitstorte",
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "alert_messages": {
+                "need_to_bee_logged_in": "Sie müssen eingeloggt sein, um auf diese Seite zugreifen zu können!",
+                "not_a_valid_img_file": "Dieser Datei-Typ wird hier nicht unterstützt!",
+                "failed_to_update": "Leider konnte die Torte nicht in der Datenbank geändert werden!",
+                "updated_torte": "Die Torte '%s' wurde erfolgreich geändert",
+                "torte_does_not_exist": "Die Torte mit dem Namen '%s' konnte nicht in der Datenbank gefunden werden!"
             }
         },
 
@@ -293,7 +366,7 @@
         "tortensortiment_route": {
             "methods": ["GET"],
             "rule": "/tortensortiment",
-            "page_path": "tortensortiment.html",
+            "page_path": "torten/tortensortiment.html",
             "head_title": "Tortensortiment",
             "heading_title": "Tortensortiment"
         },

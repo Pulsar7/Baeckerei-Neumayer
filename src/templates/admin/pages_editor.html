@@ -1,56 +1,50 @@
 {% extends regular_data.base_filepath %}
 {% block content %}
 <div class="content">
+    <a id="back_link" href="{{url_for('dashboard_route')}}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Zurück</a>
     <div class="container">
-        <h2 id="untertitel">Tortensortiment</h2>
-        <h4 style="text-align: right;">Derzeit {{tortensortiment_len}} gespeichert</h4>
-        <form action="{{url_for('tortensortiment_add_route')}}" method="POST" enctype="multipart/form-data">
-            <input type="text" placeholder="Torten-Name" name="torten_name" required/>
-            <label for="torten_img"><b>Torten-Bild</b></label>
-            <input style="border: 2px solid limegreen;" type="file" name="torten_img" required/>
-            <textarea type="text" name="torten_description" placeholder="Torten-Beschreibung" required></textarea>
-            <input type="submit" class="create_submit" id="submit" value="Erstellen" />
-        </form>
-        {% if tortensortiment_len > 10 %}
         <details>
-            <summary><h3>Verfügbar sind:</h3></summary>
-            <ul>
-                {% for torte in tortensortiment %}
-                <li>{{tortensortiment[torte]['torten_name']}}</li>
-                {% endfor %}
-            </ul>
+            <summary id="untertitel">Tortensortiment</summary>
+            <h4 style="text-align: right;">Derzeit {{tortensortiment_len}} gespeichert</h4>
+            <form action="{{url_for('tortensortiment_add_route')}}" method="POST" enctype="multipart/form-data">
+                <input type="text" placeholder="Torten-Name" name="torten_name" required />
+                <label for="torten_img"><b>Torten-Bild</b></label>
+                <input style="border: 2px solid limegreen;" type="file" name="torten_img" required />
+                <textarea type="text" name="torten_description" placeholder="Torten-Beschreibung" required></textarea>
+                <input type="submit" class="create_submit" id="submit" value="Erstellen" />
+            </form>
         </details>
-        {% else %}
-        <h3>Verfügbar sind:</h3>
-        <ul>
-            {% for torte in tortensortiment %}
-            <li>{{tortensortiment[torte]['torten_name']}}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        <form action="{{url_for('tortensortiment_remove_route')}}" method="POST">
-            <label for="torten_name">Geben Sie bitte zur Bestätigung noch einmal den Namen der Torte ein:</label>
-            <input type="text" placeholder="Torten-Name" name="torten_name" required/>
-            <input id="submit" class="delete_submit" type="submit" value="Löschen" />
-        </form>
     </div>
     <div class="container">
-        <h2 id="untertitel">Team</h2>
-        <form action="{{url_for('add_team_member_route')}}" method="POST" enctype="multipart/form-data">
-            <input type="text" placeholder="Vorname" name="vorname" required />
-            <input type="text" placeholder="Nachname" name="nachname" required />
-            <label for="member_img"><b>Profilbild</b></label>
-            <input style="border: 2px solid limegreen;" type="file" name="member_img" required />
-            <input type="text" placeholder="Arbeitsplatz" name="arbeitsplatz" required />
-            <textarea type="text" name="informationen" placeholder="Informationen" required></textarea>
-            <input type="submit" class="create_submit" id="submit" value="Erstellen" />
-        </form>
-        <form action="{{url_for('remove_team_member_route')}}" method="POST">
-            <label for="torten_name">Geben Sie bitte zur Bestätigung noch einmal den Vor- & Nachnamen ein:</label>
-            <input type="text" placeholder="Vorname" name="vorname" required />
-            <input type="text" placeholder="Nachname" name="nachname" required />
-            <input id="submit" class="delete_submit" type="submit" value="Löschen" />
-        </form>
+        <details>
+            <summary id="untertitel">Hochzeitstorten</summary>
+            <h4 style="text-align: right;">Derzeit {{hochzeitstorten_len}} gespeichert</h4>
+            <form action="{{url_for('add_hochzeitstorte_route')}}" method="POST" enctype="multipart/form-data">
+                <input type="text" placeholder="Torten-Name" name="torten_name" required />
+                <label for="torten_img"><b>Torten-Bild</b></label>
+                <input style="border: 2px solid limegreen;" type="file" name="torten_img" required />
+                <textarea type="text" name="torten_description" placeholder="Torten-Beschreibung" required></textarea>
+                <input type="submit" class="create_submit" id="submit" value="Erstellen" />
+            </form>
+        </details>
+    </div>
+    <div class="container">
+        <details>
+            <summary id="untertitel">Team</summary>
+            <form action="{{url_for('add_team_member_route')}}" method="POST" enctype="multipart/form-data">
+                <input type="text" placeholder="Vorname" name="vorname" required />
+                <input type="text" placeholder="Nachname" name="nachname" required />
+                <label for="member_img"><b>Profilbild</b></label>
+                <input style="border: 2px solid limegreen;" type="file" name="member_img" required />
+                <input type="text" placeholder="Arbeitsplatz" name="arbeitsplatz" required />
+                <input type="submit" class="create_submit" id="submit" value="Erstellen" />
+            </form>
+            <form action="{{url_for('remove_team_member_route')}}" method="POST" enctype="multipart/form-data">
+                <input type="text" placeholder="Vorname" name="vorname" required />
+                <input type="text" placeholder="Nachname" name="nachname" required />
+                <input type="submit" class="delete_submit" id="submit" value="Löschen" />
+            </form>
+        </details>
     </div>
 </div>
 {% endblock %}
