@@ -21,7 +21,9 @@ The server is running on a specific host and port (modify the config.json - File
 
 ## Server Deployment
 
+git clone https://github.com/Pulsar7/Baeckerei-Neumayer.git
 
+cd Baeckerei-Neumayer
 
 ## Suggestions & Reports
 
