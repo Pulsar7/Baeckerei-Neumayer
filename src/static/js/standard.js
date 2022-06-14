@@ -7,6 +7,11 @@ function NavbarFunction() {
     }
 }
 
+function CloseCookieQuestionContainer() {
+    var cookie_question_container = document.getElementById("cookie_question_container");
+    cookie_question_container.style.display = "none";
+}
+
 function OpenModal(number) {
     var modal = document.getElementById("Modal" + number);
     modal.style.display = "block";

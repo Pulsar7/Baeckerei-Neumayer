@@ -103,6 +103,7 @@ webserver.add_url_rule(rule = edit_hochzeitstorte_route['rule'], view_func = req
     methods = edit_hochzeitstorte_route['methods'])
 webserver.add_url_rule(rule = edit_tortensortiment_route['rule'], view_func = requests.edit_tortensortiment_route,
     methods = edit_tortensortiment_route['methods'])
+webserver.before_request(requests.before_request_func)
 
 # Errors/Func
 not_found_route = conf.get('Requests','404_route')

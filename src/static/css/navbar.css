@@ -18,6 +18,7 @@
 
 .active, #active {
   background-color: #04AA6D;
+  background-color: rgb(48, 87, 206);
   color: white;
 }
 

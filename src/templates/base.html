@@ -94,6 +94,12 @@
         {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
+        <div class="cookie_question_container" id="cookie_question_container">
+            <a id="close_cookie_container" onclick="CloseCookieQuestionContainer();"><i class="fa fa-times" aria-hidden="true"></i></a>
+            <p></p>
+            <a href="#" id="akzeptieren_link">Akzeptieren</a>
+            <a href="#" id="ablehnen_link">Ablehnen</a>
+        </div>
         <div class="footer">
             <p id="text">© 2022 Bäckerei Neumayer</p>
             <div class="links">

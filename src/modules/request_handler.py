@@ -363,6 +363,9 @@ class REQUESTS():
             regular_data = regular_data
         )
 
+    def before_request_func(self):
+        pass
+
     def tortensortiment_route(self):
         name = "tortensortiment"
         regular_data = self.get_regular_resp_data(name)
