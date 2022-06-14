@@ -6,7 +6,8 @@
         "template_folder": "src/templates/",
         "static_folder": "src/static/",
         "secret_key": "jkalsdfkhjlasdfhjkasdfhiuojafsdhjgasfdguihjafdsiuzghjwaefrugizafwesghjk§%$&§$)IU&/Z$)=&(",
-        "img_upload_folder": "src/static/img/uploaded/"
+        "img_upload_folder": "src/static/img/uploaded/",
+        "argparse_name": "Argparse"
     },
 
     "Logging": {

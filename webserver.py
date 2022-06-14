@@ -1,7 +1,7 @@
 """
 Bäckerei Neumeyer/Webserver/Python 3.8.10
 """
-import sys,logging,argparse,os,hashlib
+import sys,logging,argparse,os
 sys.dont_write_bytecode = True
 from flask import (Flask)
 from src.modules import (config,request_handler,database)
@@ -24,7 +24,9 @@ webserver = Flask(
 webserver.secret_key = conf.get('Webserver','secret_key')
 db = database.DATABASE(logger,conf)
 requests = request_handler.REQUESTS(logger,conf,db,webserver_name)
-args = ""
+parser = argparse.ArgumentParser(description = conf.get('Webserver','argparse_name'))
+parser.add_argument('--debug', default = False, help = "Debug-Mode (default: False)")
+args = parser.parse_args()
 
 ########
 # Templates
@@ -127,6 +129,5 @@ if (__name__ == '__main__'):
     webserver.run(
         host = conf.get('Webserver','host'),
         port = conf.get('Webserver','port'),
-        debug = True
-        # debug = args.debug
+        debug = args.debug
     )

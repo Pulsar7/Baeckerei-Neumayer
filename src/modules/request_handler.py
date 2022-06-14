@@ -18,6 +18,7 @@ class REQUESTS():
         data['head_title'] = self.webserver_name+"/"+self.conf.get('Requests',f'{page_name}_route')['head_title']
         data['heading_title'] = self.conf.get('Requests',f'{page_name}_route')['heading_title']
         data['logged_in_status'] = self.db.check_if_logged_in(session)
+        data['page_name'] = page_name
         # data['page_js_file'] = f"/js/{page_name}.js"
         return data
 
