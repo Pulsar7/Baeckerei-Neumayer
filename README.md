@@ -20,15 +20,21 @@
 The server is running on a specific host and port (modify the config.json - File), default: host: 0.0.0.0 and port: 5000.
 
 ## Server Deployment
-Python 3.8.10:
+**Python 3.8.10:**
 
     git clone https://github.com/Pulsar7/Baeckerei-Neumayer.git
     cd Baeckerei-Neumayer/
     pip3 install flask
 
-Start the MongoDB-Server (Linux):
+**Start the MongoDB-Server (Linux):**
     
     sudo service mongodb start
+
+**MongoDB for Windows:**
+
+Community-Edition: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
+
+
 
 Start the Webserver:
 
