@@ -25,6 +25,13 @@ Python 3.8.10:
     git clone https://github.com/Pulsar7/Baeckerei-Neumayer.git
     cd Baeckerei-Neumayer/
     pip3 install flask
+
+Start the MongoDB-Server (Linux):
+    
+    sudo service mongodb start
+
+Start the Webserver:
+
     python3 webserver.py
 
 ## Suggestions & Reports
