@@ -24,7 +24,7 @@ Python 3.8.10:
 
     git clone https://github.com/Pulsar7/Baeckerei-Neumayer.git
     cd Baeckerei-Neumayer/
-    pip3 install -r requirements.txt
+    pip3 install flask
     python3 webserver.py
 
 ## Suggestions & Reports
