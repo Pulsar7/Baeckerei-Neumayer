@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        {% autoescape false %}
+        <title>{{regular_data['head_title']}}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% for css_element in regular_data.css_files %}
+        <link rel="stylesheet" href="{{regular_data['css_files'][css_element]}}" type="text/css">
+        {% endfor %}
+        {% for js_element in regular_data.js_files %}
+        <script src="{{regular_data['js_files'][js_element]}}"></script>
+        {% endfor %}
+        {% for font_element in regular_data.google_fonts %}
+        <link href="{{regular_data['google_fonts'][font_element]}}" rel="stylesheet">
+        {% endfor %}
+        {% for icon_element in regular_data.icons %}
+        {{regular_data['icons'][icon_element]}}
+        {% endfor %}
+        {% endautoescape %}
+    </head>
+    <body lang="de">
+        <div class="heading">
+            <h1 id="title">{{regular_data['heading_title']}}</h1>
+        </div>
+        <div class="topnav" id="myTopnav">
+            {% if regular_data.page_name == "index" %}
+            <a href="{{url_for('index_route')}}" class="active"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+            {% else %}
+            <a href="{{url_for('index_route')}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+            {% endif %}
+            {% if regular_data.page_name == "contact" %}
+            <a href="{{url_for('contact_route')}}" class="active"><i class="fa fa-address-book" aria-hidden="true"></i> Kontakt</a>
+            {% else %} 
+            <a href="{{url_for('contact_route')}}"><i class="fa fa-address-book" aria-hidden="true"></i> Kontakt</a>
+            {% endif %}
+            {% if regular_data.page_name == "team" %}
+            <a href="{{url_for('team_route')}}" class="active"><i class="fa fa-users" aria-hidden="true"></i> Team</a>
+            {% else %}
+            <a href="{{url_for('team_route')}}"><i class="fa fa-users" aria-hidden="true"></i> Team</a>
+            {% endif %}
+            <div class="dropdown">
+                {% if regular_data.page_name == "assortmentcakes" or regular_data.page_name == "photocakes" or regular_data.page_name == "weddingcakes" or regular_data.page_name == "holidaycakes" %}
+                <a class="dropbtn" id="active">Torten <i class="fa fa-caret-down"></i></a>
+                {% else %}
+                <a class="dropbtn">Torten <i class="fa fa-caret-down"></i></a>
+                {% endif %}
+                <div class="dropdown-content">
+                    <a href="{{url_for('assortmentcakes_route')}}"><i class="fa fa-database" aria-hidden="true"></i> Tortensortiment</a>
+                    <a href="{{url_for('photocakes_route')}}"><i class="fa fa-camera-retro" aria-hidden="true"></i> Fototorten</a>
+                    <a href="{{url_for('weddingcakes_route')}}"><i class="fa fa-opera" aria-hidden="true"></i> Hochzeitstorten</a>
+                    <a href="{{url_for('holidaycakes_route')}}"><i class="fa fa-birthday-cake" aria-hidden="true"></i> Festtagstorten</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                {% if regular_data.page_name == "easter" or regular_data.page_name == "christmas" or regular_data.page_name == "all_saints_day" %}
+                <a class="dropbtn" id="active">Besondere Anlässe <i class="fa fa-caret-down"></i></a>
+                {% else %}
+                <a class="dropbtn">Besondere Anlässe <i class="fa fa-caret-down"></i></a>
+                {% endif %}
+                <div class="dropdown-content">
+                    <a href="{{url_for('easter_route')}}"><i class="fas fa-egg"></i> Ostern</a>
+                    <a href="{{url_for('christmas_route')}}"><i class="fa fa-tree" aria-hidden="true"></i> Weihnachten</a>
+                    <a href="{{url_for('all_saints_day_route')}}">Allerheiligen</a>
+                </div>
+            </div>
+            {% if regular_data.page_name == "service" %}
+            <a href="{{url_for('service_route')}}" class="active">Service</a>
+            {% else %}
+            <a href="{{url_for('service_route')}}">Service</a>
+            {% endif %}
+            {% if regular_data.page_name == "arrival" %}
+            <a href="{{url_for('arrival_route')}}" class="active"><i class="fa fa-car" aria-hidden="true"></i> Anfahrt</a>
+            {% else %}
+            <a href="{{url_for('arrival_route')}}"><i class="fa fa-car" aria-hidden="true"></i> Anfahrt</a>
+            {% endif %}
+            {% if regular_data.page_name == "imprint" %}
+            <a href="{{url_for('imprint_route')}}" class="active">Impressum</a>
+            {% else %}
+            <a href="{{url_for('imprint_route')}}">Impressum</a>
+            {% endif %}
+            <!--<a href="{{url_for('login_route')}}"><i class="fas fa-sign-in-alt"></i> Login</a>!-->
+            <a href="javascript:void(0);" class="icon" onclick="NavbarFunction();">&#9776;</a>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        {% if regular_data.error_keyword in message %}
+        <div class="alert_container_red">
+            <p>{{message}}</p>
+        </div>
+        {% else %}
+        <div class="alert_container_green">
+            <p>{{message}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+        {% if regular_data.show_cookie_disclaimer == True %}
+        <div class="cookie_container" id="cookie_container">
+            <h4>Cookie Einstellungen</h4>
+            <p>
+                Um Ihnen den bestmöglichen Funktionsumfang bereitstellen zu können, speichern wir einige 
+                Cookies in Ihrem Browser. Sie
+                können selbst die Entscheidung treffen, in welchen Umfang Sie diese zulassen möchten. Bitte bachten Sie jedoch, dass
+                beim Abwählen von Cookies das Nutzungserlebnis der Website eingeschränkt sein kann.
+            </p>
+            <div class="options">
+                <a id="decline" onclick="VanishCookieContainer();" href="#nicht-notwendige-ablehnen">Nicht notwendige ablehnen</a>
+                <a id="accept" onclick="VanishCookieContainer();" href="#akzeptieren">Akzeptieren</a>
+            </div>
+        </div>
+        {% endif %}
+    </body>
+    <footer>
+        <div class="foot">
+            <h4>(C) Bäckerei Neumayer</h4>
+        </div>
+    </footer>
+</html>
+<style>
+    .heading {
+        background-image: url("/img/heading_bg/banner-1.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+</style>

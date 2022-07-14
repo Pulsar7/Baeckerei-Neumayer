@@ -1,0 +1,10 @@
+.heading h1 {
+    font-family: 'Niconne', cursive;
+    font-size: 8rem;
+}
+
+@media screen and (max-width:800px) {
+    .heading h1 {
+        font-size: 2rem;
+    }
+}

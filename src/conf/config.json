@@ -1,0 +1,230 @@
+{
+    "Webserver": {
+        "name": "Bäckerei Neumayer",
+        "host": "0.0.0.0",
+        "port": 5000
+    },
+
+    "Encryption": {
+        "secret_key": "ADFhg3487596sdjhfgHJDAFhj"
+    },
+
+    "Database": {
+        "config_file": "src/conf/database.json"
+    },
+
+    "Cookie-Disclaimer": {
+        "cookie_session_element": "cookie_allow_state"
+    },
+
+    "Alert-Messages": {
+        "error_keyword": "!",
+        "errors": {
+            "need_to_be_logged_in": "Sie müssen angemeldet sein um diese Seite besuchen zu dürfen!",
+            "page_not_found_404_error": "Ihre angeforderte Seite mit der URL '%s' existiert nicht!",
+            "bad_request_400_error": "Ihre Anfrage konnte vom Server nicht verarbeitet werden!",
+            "missing_value_in_session_data": "Das Element '%s' konnte nicht in Ihren Session-Daten gefunden werden!",
+            "invalid_session_data": "Ihre Session-Daten stimmen nicht mit denen aus der Datenbank überein!",
+            "incorrect_username_or_pwd": "Es wurde in falscher Benutzername oder/und ein falsches Passwort angegeben!",
+            "could_not_delete_element_from_db": "Das Element mit der ID '%s' konnte nicht als '%s' in der Datenbank gelöscht werden!"
+        },
+        
+        "info": {
+            "logged_in": "Sie haben sich erfolgreich als %s angemeldet",
+            "deleted_element_from_db": "Das Element mit der ID '%s' wurde erfolgreich gelöscht"
+        }
+    },
+
+    "Requests": {
+        "request_keyword": "_route",
+        "error_request_keyword": "_error",
+        "template_folder": "src/templates/",
+        "static_folder": "src/static/",
+
+        "regular_data": {
+            "base_filepath": "base.html",
+            "css_files": {
+                "standard_css_file": "/css/standard.css",
+                "navbar_css_file": "/css/navbar.css"
+            },
+            "js_files": {
+                "standard_js_file": "/js/standard.js",
+                "navbar_js_file": "/js/navbar.js"
+            },
+            "google_fonts": {
+                "font-family: 'Poppins', sans-serif;": "https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap",
+                "font-family: 'Niconne', cursive;": "https://fonts.googleapis.com/css2?family=Niconne&display=swap"
+            },
+            "icons": {
+                "Cloudflare-Font-Awesome-4": "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' type='text/css'>"
+            }
+        },
+
+        "index_route": {
+            "rule": "/",
+            "methods": ["GET"],
+            "page_path": "index.html",
+            "head_title": "Home",
+            "heading_title": "Bäckerei Neumayer"
+        },
+
+        "login_route": {
+            "rule": "/login",
+            "methods": ["POST","GET"],
+            "page_path": "admin/login.html",
+            "head_title": "Login",
+            "heading_title": "Login"
+        },
+        
+        "dashboard_route": {
+            "rule": "/dashboard",
+            "methods": ["GET"],
+            "page_path": "admin/dashboard.html",
+            "head_title": "Dashboard",
+            "heading_title": "Dashboard"
+        },
+
+        "arrival_route": {
+            "rule": "/arrival",
+            "methods": ["GET"],
+            "page_path": "arrival.html",
+            "head_title": "Anfahrt",
+            "heading_title": "Anfahrt"
+        },
+
+        "service_route": {
+            "rule": "/service",
+            "methods": ["GET"],
+            "page_path": "service.html",
+            "head_title": "Service",
+            "heading_title": "Service"
+        },
+
+        "imprint_route": {
+            "rule": "/imprint",
+            "methods": ["GET"],
+            "page_path": "imprint.html",
+            "head_title": "Impressum",
+            "heading_title": "Impressum"
+        },
+
+        "contact_route": {
+            "rule": "/contact",
+            "methods": ["GET"],
+            "page_path": "contact.html",
+            "head_title": "Kontakt",
+            "heading_title": "Kontakt"
+        },
+
+        "team_route": {
+            "rule": "/team",
+            "methods": ["GET"],
+            "page_path": "team.html",
+            "head_title": "Team",
+            "heading_title": "Team"
+        },
+
+        "assortmentcakes_route": {
+            "rule": "/assortmentcakes",
+            "methods": ["GET"],
+            "page_path": "cakes/assortmentcakes.html",
+            "head_title": "Tortensortiment",
+            "heading_title": "Tortensortiment"
+        },
+
+        "photocakes_route": {
+            "rule": "/photocakes",
+            "methods": ["GET"],
+            "page_path": "cakes/photocakes.html",
+            "head_title": "Fototorten",
+            "heading_title": "Fototorten"
+        },
+
+        "weddingcakes_route": {
+            "rule": "/weddingcakes",
+            "methods": ["GET"],
+            "page_path": "cakes/weddingcakes.html",
+            "head_title": "Hochzeitstorten",
+            "heading_title": "Hochzeitstorten"
+        },
+
+        "holidaycakes_route": {
+            "rule": "/holidaycakes",
+            "methods": ["GET"],
+            "page_path": "cakes/holidaycakes.html",
+            "head_title": "Festtagstorten",
+            "heading_title": "Festtagstorten"
+        },
+
+        "easter_route": {
+            "rule": "/easter",
+            "methods": ["GET"],
+            "page_path": "occasions/easter.html",
+            "head_title": "Besondere Anlässe/Ostern",
+            "heading_title": "Ostern"
+        },
+
+        "christmas_route": {
+            "rule": "/christmas",
+            "methods": ["GET"],
+            "page_path": "occasions/christmas.html",
+            "head_title": "Besondere Anlässe/Weihnachten",
+            "heading_title": "Weihnachten"
+        },
+
+        "all_saints_day_route": {
+            "rule": "/all_saints_day",
+            "methods": ["GET"],
+            "page_path": "occasions/all_saints_day.html",
+            "head_title": "Besondere Anlässe/Allerheiligen",
+            "heading_title": "Allerheiligen"
+        },
+
+
+
+        "css_route": {
+            "rule": "/css/<string:path>",
+            "methods": ["GET"],
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "dir": "css/"
+        },
+
+        "js_route": {
+            "rule": "/css/<string:path>",
+            "methods": ["GET"],
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "dir": "js/"
+        },
+
+        "img_route": {
+            "rule": "/img/<string:path>",
+            "methods": ["GET"],
+            "page_path": "",
+            "head_title": "",
+            "heading_title": "",
+            "dir": "img/"
+        },
+
+
+        
+        "not_found_error": {
+            "rule": "404",
+            "methods": ["GET"],
+            "page_path": "error/404.html",
+            "head_title": "Fehler-404",
+            "heading_title": "Nicht gefunden"
+        },
+
+        "bad_request_error": {
+            "rule": "400",
+            "methods": ["GET"],
+            "page_path": "error/400.html",
+            "head_title": "Fehler-400",
+            "heading_title": "Bad request"
+        }
+    }
+}

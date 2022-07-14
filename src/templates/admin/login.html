@@ -1,0 +1,9 @@
+{% extends regular_data.base_filepath %}
+{% block content %}
+<div class="content">
+    <form action="{{url_for('login_route')}}" method="POST">
+        <input name="username">
+        <input type="submit" value="Anmelden">
+    </form>
+</div>
+{% endblock %}

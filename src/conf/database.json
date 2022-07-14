@@ -1,0 +1,94 @@
+{
+    "Connection": {
+        "connection_url": "mongodb://localhost:27017/",
+        "db_name": "NeumayerDB"
+    },
+
+    "Collections": {
+        "SessionData": {
+            "name": "SessionData",
+            "values": ["session_id","session_key","username","session_time"]
+        },
+        
+        "UserData": {
+            "name": "UserData",
+            "values": ["username","password"]
+        },
+
+        "AssortmentcakeData": {
+            "name": "AssortmentcakeData",
+            "img_upload_folder": "/img/uploaded/AssortmentCakes",
+            "values": [
+                "cake_id",
+                "cake_title",
+                "cake_description",
+                "cake_img_path",
+                "cake_upload_time"
+            ],
+            "empty_data": {
+                "cake_id": "0",
+                "cake_title": "",
+                "cake_description": "",
+                "cake_img_path": "",
+                "cake_upload_time": ""
+            }
+        },
+
+        "WeddingcakeData": {
+            "name": "WeddingcakeData",
+            "img_upload_folder": "/img/uploaded/WeddingCakes",
+            "values": [
+                "cake_id",
+                "cake_title",
+                "cake_description",
+                "cake_img_path",
+                "cake_upload_time"
+            ],
+            "empty_data": {
+                "cake_id": "0",
+                "cake_title": "",
+                "cake_description": "",
+                "cake_img_path": "",
+                "cake_upload_time": ""
+            }
+        },
+
+        "ChristmascakeData": {
+            "name": "ChristmascakeData",
+            "img_upload_folder": "/img/uploaded/ChristmasCakes",
+            "values": [
+                "cake_id",
+                "cake_title",
+                "cake_description",
+                "cake_img_path",
+                "cake_upload_time"
+            ],
+            "empty_data": {
+                "cake_id": "0",
+                "cake_title": "",
+                "cake_description": "",
+                "cake_img_path": "",
+                "cake_upload_time": ""
+            }
+        },
+
+        "PhotocakesData": {
+            "name": "PhotocakesData",
+            "img_upload_folder": "/img/uploaded/PhotoCakes",
+            "values": [
+                "cake_id",
+                "cake_title",
+                "cake_description",
+                "cake_img_path",
+                "cake_upload_time"
+            ],
+            "empty_data": {
+                "cake_id": "0",
+                "cake_title": "",
+                "cake_description": "",
+                "cake_img_path": "",
+                "cake_upload_time": ""
+            }
+        }
+    }
+}
